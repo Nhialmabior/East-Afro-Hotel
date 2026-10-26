@@ -1,0 +1,1558 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Staff Admin | East Afro Hotel</title>
+  <meta
+    name="description"
+    content="East Afro Hotel staff administration dashboard for room inventory, reservations, walk-in bookings, room allocations and guest billing."
+  >
+  <meta name="theme-color" content="#0b1638">
+
+  <link rel="icon" href="assets/favicon/favicon.jpg">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --admin-navy: #0b1638;
+      --admin-blue: #163c72;
+      --admin-gold: #d5a83d;
+      --admin-bg: #f4f6fa;
+      --admin-border: #e1e6ef;
+      --admin-text: #17233c;
+      --admin-muted: #68758b;
+      --admin-white: #ffffff;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      background: var(--admin-bg);
+      color: var(--admin-text);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .6;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid rgb(213 168 61 / 65%);
+      outline-offset: 3px;
+    }
+
+    .admin-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 16px 24px;
+      background: var(--admin-navy);
+      color: white;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .admin-brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .admin-brand h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 1.3rem;
+    }
+
+    .admin-brand p {
+      margin: 3px 0 0;
+      color: #d4dced;
+      font-size: .83rem;
+    }
+
+    .admin-topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .admin-topbar button {
+      padding: 10px 14px;
+      border: 1px solid #52617f;
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+    }
+
+    .admin-topbar button:hover {
+      background: #23355d;
+    }
+
+    .admin-topbar .admin-logout {
+      border-color: var(--admin-gold);
+      color: #ffdf8a;
+    }
+
+    .admin-status-bar {
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--admin-border);
+      background: white;
+      color: var(--admin-muted);
+      font-size: .9rem;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-login-wrap {
+      width: min(440px, calc(100% - 32px));
+      margin: 65px auto;
+    }
+
+    .admin-login-card,
+    .admin-card {
+      padding: 24px;
+      border: 1px solid var(--admin-border);
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 5px 20px rgb(20 38 73 / 5%);
+    }
+
+    .admin-login-card h2 {
+      margin-top: 0;
+      font-family: "Playfair Display", serif;
+    }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      min-height: calc(100vh - 120px);
+    }
+
+    .admin-sidebar {
+      padding: 22px 14px;
+      background: #101e43;
+    }
+
+    .admin-sidebar-title {
+      padding: 0 12px;
+      color: #aebbd3;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .admin-sidebar-nav {
+      display: grid;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .admin-sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #e2e8f3;
+      text-decoration: none;
+      font-size: .91rem;
+      transition: background .2s ease;
+    }
+
+    .admin-sidebar-link:hover,
+    .admin-sidebar-link.is-active {
+      background: #24385f;
+      color: white;
+    }
+
+    .admin-sidebar-link.is-active {
+      box-shadow: inset 3px 0 var(--admin-gold);
+    }
+
+    .admin-main {
+      min-width: 0;
+      padding: 28px;
+    }
+
+    .admin-page-heading {
+      margin: 0 0 22px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.6rem, 3vw, 2.15rem);
+    }
+
+    .admin-section-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .admin-section-heading h2 {
+      margin: 0 0 8px;
+      font-family: "Playfair Display", serif;
+    }
+
+    .admin-eyebrow {
+      margin: 0 0 7px;
+      color: #94701f;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .admin-muted {
+      color: var(--admin-muted);
+      line-height: 1.65;
+    }
+
+    .admin-card-description {
+      margin: 0 0 20px;
+    }
+
+    .admin-section {
+      margin-bottom: 30px;
+      scroll-margin-top: 20px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .admin-card h3 {
+      margin-top: 0;
+    }
+
+    .admin-card-title {
+      margin-bottom: 8px;
+    }
+
+    .admin-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    .metric strong {
+      font-size: 1.8rem;
+      color: var(--admin-navy);
+      overflow-wrap: anywhere;
+    }
+
+    .metric span {
+      color: var(--admin-muted);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .admin-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .admin-form-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .admin-field-wide {
+      grid-column: 1 / -1;
+    }
+
+    .admin-field label {
+      color: var(--admin-text);
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .admin-field input,
+    .admin-field select,
+    .admin-field textarea,
+    .admin-login-card input {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border: 1px solid #d5dce8;
+      border-radius: 8px;
+      outline: none;
+      background: white;
+      color: var(--admin-text);
+    }
+
+    .admin-field input:focus,
+    .admin-field select:focus,
+    .admin-field textarea:focus,
+    .admin-login-card input:focus {
+      border-color: #315d9c;
+      box-shadow: 0 0 0 3px rgb(49 93 156 / 12%);
+    }
+
+    .admin-field textarea {
+      resize: vertical;
+    }
+
+    .admin-field-action {
+      justify-content: flex-end;
+    }
+
+    .admin-label-spacer {
+      visibility: hidden;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 16px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--admin-navy);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1a2d58;
+    }
+
+    .btn-gold {
+      background: var(--admin-gold);
+      color: #17233c;
+    }
+
+    .btn-gold:hover {
+      background: #e4b94d;
+    }
+
+    .btn-outline {
+      border-color: #cbd5e4;
+      background: white;
+      color: var(--admin-text);
+    }
+
+    .btn-outline:hover {
+      background: #f3f6fb;
+    }
+
+    .admin-status {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border: 1px solid #dce3ed;
+      border-radius: 8px;
+      background: #f7f9fc;
+      color: var(--admin-text);
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-status-success {
+      border-color: #b7e3c7;
+      background: #effaf3;
+      color: #17643a;
+    }
+
+    .admin-status-error {
+      border-color: #f0c2c2;
+      background: #fff1f1;
+      color: #922c2c;
+    }
+
+    .admin-empty-state {
+      padding: 16px;
+      color: var(--admin-muted);
+      line-height: 1.6;
+    }
+
+    .admin-error-state {
+      color: #a12626;
+    }
+
+    .admin-record-card,
+    .entry {
+      margin-bottom: 15px;
+      padding: 18px;
+      border: 1px solid var(--admin-border);
+      border-radius: 11px;
+      background: white;
+    }
+
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .record-header h3 {
+      margin: 0 0 5px;
+    }
+
+    .record-header p {
+      margin: 0;
+    }
+
+    .record-subtitle,
+    .record-received {
+      color: var(--admin-muted);
+      font-size: .87rem;
+    }
+
+    .record-contact-grid,
+    .reservation-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .record-detail,
+    .reservation-detail {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .record-detail-label {
+      color: var(--admin-muted);
+      font-size: .8rem;
+    }
+
+    .record-detail-value {
+      overflow-wrap: anywhere;
+    }
+
+    .record-section-title {
+      margin: 16px 0 10px;
+    }
+
+    .record-control-label {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+      font-weight: 600;
+    }
+
+    .record-status-select,
+    .record-room-select {
+      width: 100%;
+      max-width: 360px;
+      padding: 10px;
+      border: 1px solid #d5dce8;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .record-notes-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px;
+      border: 1px solid #d5dce8;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    .record-actions-section,
+    .record-notes-section {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--admin-border);
+    }
+
+    .reservation-action-notice {
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f5f7fb;
+      line-height: 1.55;
+    }
+
+    .reservation-action-notice p {
+      margin: 5px 0 0;
+    }
+
+    .reservation-action-success {
+      background: #effaf3;
+      color: #17643a;
+    }
+
+    .reservation-action-warning {
+      background: #fff7e5;
+      color: #76500a;
+    }
+
+    .reservation-action-declined {
+      background: #fff1f1;
+      color: #922c2c;
+    }
+
+    .reservation-room-selection {
+      display: grid;
+      gap: 12px;
+    }
+
+    .reservation-room-label {
+      display: grid;
+      gap: 7px;
+      font-weight: 600;
+    }
+
+    .reservation-action-buttons,
+    .record-notes-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .record-button {
+      padding: 9px 12px;
+      border: 1px solid #cbd5e4;
+      border-radius: 7px;
+      background: white;
+      color: var(--admin-text);
+      font-weight: 600;
+    }
+
+    .record-button-primary {
+      border-color: var(--admin-navy);
+      background: var(--admin-navy);
+      color: white;
+    }
+
+    .record-button-danger {
+      border-color: #dbaaaa;
+      color: #922c2c;
+    }
+
+    .record-button-secondary {
+      background: #f7f9fc;
+    }
+
+    .inventory-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .inventory-controls input,
+    .inventory-controls select {
+      flex: 1 1 180px;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid #d5dbe5;
+      border-radius: 8px;
+      background: white;
+      color: var(--admin-text);
+    }
+
+    .inventory-summary {
+      color: var(--admin-muted);
+      line-height: 1.7;
+      font-size: .92rem;
+    }
+
+    .inventory-room-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .inventory-entry {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .inventory-room-details {
+      flex: 1 1 220px;
+      min-width: 0;
+    }
+
+    .inventory-room-details h3,
+    .inventory-room-details p {
+      margin: 0 0 8px;
+    }
+
+    .inventory-room-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .room-state {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 600;
+    }
+
+    .room-state-available {
+      background: #e3f7ec;
+      color: #17643a;
+    }
+
+    .room-state-booked {
+      background: #e5edff;
+      color: #244c9a;
+    }
+
+    .room-state-on-hold {
+      background: #fff2cf;
+      color: #835600;
+    }
+
+    .room-state-maintenance,
+    .room-state-inactive {
+      background: #fce8e8;
+      color: #922c2c;
+    }
+
+    .admin-table-wrapper,
+    .booked-rooms-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .admin-data-table,
+    .calendar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
+    .admin-data-table th,
+    .admin-data-table td,
+    .calendar-table th,
+    .calendar-table td {
+      padding: 11px;
+      border: 1px solid var(--admin-border);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .admin-data-table th,
+    .calendar-table th {
+      background: #f0f3f8;
+      font-weight: 700;
+    }
+
+    .calendar-table .available {
+      background: #effaf3;
+    }
+
+    .calendar-table .occupied {
+      background: #e5edff;
+      color: #244c9a;
+    }
+
+    .calendar-table .blocked {
+      background: #fff2cf;
+      color: #835600;
+    }
+
+    .room-block-released {
+      opacity: .72;
+    }
+
+    .admin-footer {
+      padding: 18px;
+      border-top: 1px solid var(--admin-border);
+      background: white;
+      color: var(--admin-muted);
+      text-align: center;
+      font-size: .82rem;
+    }
+
+    .admin-form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media (max-width: 1050px) {
+      .admin-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .admin-layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+      }
+
+      .admin-main {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-sidebar {
+        padding: 12px;
+      }
+
+      .admin-sidebar-title {
+        display: none;
+      }
+
+      .admin-sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 7px;
+        margin-top: 0;
+        padding-bottom: 3px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .admin-sidebar-link {
+        flex: 0 0 auto;
+        padding: 10px 12px;
+        font-size: .82rem;
+      }
+
+      .admin-main {
+        padding: 16px;
+      }
+
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-card {
+        padding: 17px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .admin-topbar {
+        padding: 14px;
+      }
+
+      .admin-status-bar {
+        padding: 10px 14px;
+      }
+
+      .admin-brand h1 {
+        font-size: 1.1rem;
+      }
+
+      .admin-topbar-actions {
+        width: 100%;
+      }
+
+      .admin-topbar-actions button {
+        flex: 1;
+      }
+
+      .admin-metrics {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .metric {
+        padding: 14px;
+      }
+
+      .metric strong {
+        font-size: 1.45rem;
+      }
+
+      .admin-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-field-wide {
+        grid-column: auto;
+      }
+
+      .record-contact-grid,
+      .reservation-detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-label-spacer {
+        display: none;
+      }
+
+      .admin-field-action {
+        justify-content: flex-start;
+      }
+
+      .admin-field-action button {
+        width: 100%;
+      }
+
+      .admin-form-actions .btn,
+      .admin-section-heading > .btn {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="admin-topbar">
+    <div class="admin-brand">
+      <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+      <div>
+        <h1>East Afro Hotel</h1>
+        <p>Staff Administration Dashboard · Juba, South Sudan</p>
+      </div>
+    </div>
+
+    <div class="admin-topbar-actions">
+      <button id="refresh" type="button">Refresh dashboard</button>
+      <button id="logout" class="admin-logout" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <div id="status" class="admin-status-bar" role="status" aria-live="polite">
+    Checking staff access…
+  </div>
+
+  <!-- STAFF LOGIN -->
+  <main id="login" class="admin-login-wrap" hidden>
+    <section class="admin-login-card">
+      <p class="admin-eyebrow">STAFF ACCESS</p>
+      <h2>Administrator sign in</h2>
+      <p class="admin-muted">
+        Sign in with an approved East Afro Hotel staff account.
+      </p>
+
+      <form id="loginForm" class="admin-form">
+        <div class="admin-field">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="admin-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button class="btn btn-primary" type="submit">Sign in securely</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- AUTHENTICATED DASHBOARD -->
+  <div id="dashboard" class="admin-layout" hidden>
+    <aside class="admin-sidebar">
+      <p class="admin-sidebar-title">Hotel management</p>
+
+      <nav class="admin-sidebar-nav" aria-label="Dashboard navigation">
+        <a
+          class="admin-sidebar-link is-active"
+          href="#overview"
+          data-dashboard-link
+          aria-current="page"
+        >
+          <span aria-hidden="true">◫</span> Overview
+        </a>
+
+        <a class="admin-sidebar-link" href="#inventory-section" data-dashboard-link>
+          <span aria-hidden="true">▦</span> Room inventory
+        </a>
+
+        <a class="admin-sidebar-link" href="#calendar-section" data-dashboard-link>
+          <span aria-hidden="true">▣</span> Calendar &amp; blocks
+        </a>
+
+        <a class="admin-sidebar-link" href="#reservations-section" data-dashboard-link>
+          <span aria-hidden="true">▤</span> Reservations
+        </a>
+
+        <a class="admin-sidebar-link" href="#walkin-section" data-dashboard-link>
+          <span aria-hidden="true">＋</span> Walk-in booking
+        </a>
+
+        <a class="admin-sidebar-link" href="#booked-rooms-section" data-dashboard-link>
+          <span aria-hidden="true">▣</span> Booked rooms
+        </a>
+
+        <a class="admin-sidebar-link" href="#billing-section" data-dashboard-link>
+          <span aria-hidden="true">＄</span> Guest stays &amp; billing
+        </a>
+
+        <a class="admin-sidebar-link" href="#messages-section" data-dashboard-link>
+          <span aria-hidden="true">✉</span> Contact messages
+        </a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <!-- OVERVIEW -->
+      <section id="overview" class="admin-section" aria-labelledby="overview-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">HOTEL OPERATIONS</p>
+            <h2 id="overview-heading" class="admin-page-heading">Dashboard Overview</h2>
+            <p class="admin-muted">
+              Monitor room capacity, availability, occupancy, pending reservations,
+              current guests, payments received and outstanding balances.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEVEN OVERVIEW INDICATORS -->
+      <section
+        id="overview-metrics"
+        class="admin-section"
+        aria-label="Seven hotel overview indicators"
+      >
+        <div id="metrics" class="admin-metrics" aria-live="polite">
+          <div class="metric">
+            <strong>—</strong>
+            <span>Total rooms</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Available rooms</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Occupied rooms</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Pending reservations</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Guests currently staying</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Payments received</span>
+          </div>
+
+          <div class="metric">
+            <strong>—</strong>
+            <span>Outstanding balance</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROOM INVENTORY -->
+      <section id="inventory-section" class="admin-section" hidden aria-labelledby="inventory-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">ROOM MANAGEMENT</p>
+            <h2 id="inventory-heading">Room Inventory</h2>
+            <p class="admin-muted">
+              Register actual hotel rooms, update rates and check room status.
+            </p>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <section class="admin-card">
+            <h3>Add a room</h3>
+            <p class="admin-muted">Add a real room to the hotel's inventory.</p>
+
+            <form id="roomForm" class="admin-form">
+              <div class="admin-field">
+                <label for="roomCode">Room number or code</label>
+                <input id="roomCode" name="room_code" maxlength="50" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="roomType">Room type</label>
+                <input
+                  id="roomType"
+                  name="room_type"
+                  maxlength="100"
+                  placeholder="e.g. Deluxe Room"
+                  required
+                >
+              </div>
+
+              <div class="admin-field">
+                <label for="roomRate">Nightly rate (USD)</label>
+                <input
+                  id="roomRate"
+                  name="rate"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="Enter rate"
+                >
+              </div>
+
+              <button class="btn btn-primary" type="submit">Add room to inventory</button>
+            </form>
+          </section>
+
+          <section class="admin-card">
+            <h3>Check availability</h3>
+            <p class="admin-muted">
+              Check the rooms against the selected dates and recorded room blocks.
+            </p>
+
+            <form id="inventoryAvailabilityForm" class="admin-form">
+              <div class="admin-field">
+                <label for="inventoryCheckIn">Check-in date</label>
+                <input id="inventoryCheckIn" name="check_in" type="date" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="inventoryCheckOut">Check-out date</label>
+                <input id="inventoryCheckOut" name="check_out" type="date" required>
+              </div>
+
+              <button class="btn btn-outline" type="submit">Check rooms</button>
+            </form>
+
+            <div id="inventoryAvailabilityResults" class="admin-status" role="status" aria-live="polite" hidden></div>
+          </section>
+        </div>
+
+        <section class="admin-card" style="margin-top:20px">
+          <div class="admin-section-heading">
+            <div>
+              <h3>Current room inventory</h3>
+              <p class="admin-muted">
+                Search, filter, edit or deactivate rooms.
+              </p>
+            </div>
+
+            <button id="refreshInventory" class="btn btn-outline" type="button">
+              Refresh inventory
+            </button>
+          </div>
+
+          <div class="inventory-controls">
+            <input
+              id="inventorySearch"
+              type="search"
+              placeholder="Search room number or type"
+              aria-label="Search room inventory"
+            >
+
+            <select id="inventoryStatusFilter" aria-label="Filter rooms by status">
+              <option value="">All room statuses</option>
+              <option value="Available">Available</option>
+              <option value="Booked">Booked</option>
+              <option value="On hold">On hold</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div id="inventorySummary" class="inventory-summary">
+            <span id="inventoryTotal">0</span> total rooms ·
+            <span id="inventoryActive">0</span> active ·
+            <span id="inventoryInactive">0</span> inactive ·
+            <span id="inventoryUnavailable">0</span> unavailable
+          </div>
+
+          <div id="inventory" class="inventory-room-list">
+            <p class="admin-empty-state">Loading room inventory…</p>
+          </div>
+        </section>
+
+        <!-- EDIT ROOM DIALOG -->
+        <dialog
+          id="editRoomDialog"
+          style="width:min(520px,calc(100% - 32px));border:1px solid #e1e6ef;border-radius:14px;padding:24px"
+        >
+          <h3>Edit room details</h3>
+
+          <form id="editRoomForm" class="admin-form">
+            <input id="editRoomId" name="id" type="hidden">
+
+            <div class="admin-field">
+              <label for="editRoomCode">Room number or code</label>
+              <input id="editRoomCode" name="room_code" required>
+            </div>
+
+            <div class="admin-field">
+              <label for="editRoomType">Room type</label>
+              <input id="editRoomType" name="room_type" required>
+            </div>
+
+            <div class="admin-field">
+              <label for="editRoomRate">Nightly rate (USD)</label>
+              <input id="editRoomRate" name="nightly_rate_usd" type="number" min="0" step="0.01">
+            </div>
+
+            <label>
+              <input id="editRoomActive" name="active" type="checkbox" checked>
+              Room is active
+            </label>
+
+            <div class="admin-form-actions">
+              <button id="saveRoomChanges" class="btn btn-primary" type="submit">Save changes</button>
+              <button id="cancelEditRoom" class="btn btn-outline" type="button">Cancel</button>
+              <button id="closeEditRoom" class="btn btn-outline" type="button">Close</button>
+            </div>
+          </form>
+        </dialog>
+      </section>
+
+      <!-- ROOM CALENDAR AND BLOCKS -->
+      <section id="calendar-section" class="admin-section" hidden aria-labelledby="calendar-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">AVAILABILITY PLANNING</p>
+            <h2 id="calendar-heading">Calendar &amp; Room Blocks</h2>
+            <p class="admin-muted">
+              View room allocations and record maintenance or other approved blocks.
+            </p>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <section class="admin-card">
+            <h3>Room calendar</h3>
+
+            <div class="admin-field">
+              <label for="viewDate">Calendar start date</label>
+              <input id="viewDate" type="date">
+            </div>
+
+            <button id="reloadCalendar" class="btn btn-outline" type="button" style="margin-top:12px">
+              Refresh calendar
+            </button>
+
+            <div class="admin-table-wrapper" style="margin-top:18px">
+              <div id="calendar">
+                <p class="admin-empty-state">Loading room calendar…</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-card">
+            <h3>Record a room block</h3>
+            <p class="admin-muted">
+              Room blocks prevent availability for the specified date range.
+            </p>
+
+            <form id="blockForm" class="admin-form">
+              <div class="admin-field">
+                <label for="blockRoom">Room</label>
+                <select id="blockRoom" name="room_id" required>
+                  <option value="">Choose a room…</option>
+                </select>
+              </div>
+
+              <div class="admin-field">
+                <label for="blockCheckIn">Start date</label>
+                <input id="blockCheckIn" name="check_in" type="date" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="blockCheckOut">End date</label>
+                <input id="blockCheckOut" name="check_out" type="date" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="blockType">Block type</label>
+                <select id="blockType" name="block_type" required>
+                  <option value="maintenance">Maintenance</option>
+                  <option value="hold">Temporary hold</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="admin-field">
+                <label for="guestReference">Reference or notes</label>
+                <input
+                  id="guestReference"
+                  name="guest_reference"
+                  maxlength="250"
+                  placeholder="Reason for blocking the room"
+                >
+              </div>
+
+              <button class="btn btn-primary" type="submit">Save room block</button>
+            </form>
+          </section>
+        </div>
+
+        <section class="admin-card" style="margin-top:20px">
+          <div id="blocks">
+            <p class="admin-empty-state">Loading room blocks…</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- RESERVATIONS -->
+      <section id="reservations-section" class="admin-section" hidden aria-labelledby="reservations-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">GUEST BOOKINGS</p>
+            <h2 id="reservations-heading">Reservation Requests</h2>
+            <p class="admin-muted">
+              Review online requests, manage status, save private notes and allocate rooms.
+            </p>
+          </div>
+
+          <button id="exportReservations" class="btn btn-outline" type="button">
+            Export reservations CSV
+          </button>
+        </div>
+
+        <div id="reservations">
+          <p class="admin-empty-state">Loading reservation requests…</p>
+        </div>
+      </section>
+
+      <!-- WALK-IN BOOKING -->
+      <section id="walkin-section" class="admin-section" hidden aria-labelledby="walkin-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">FRONT DESK</p>
+            <h2 id="walkin-heading">Walk-in Booking</h2>
+            <p class="admin-muted">
+              Register guests who arrive at the hotel without an advance reservation.
+            </p>
+          </div>
+        </div>
+
+        <section class="admin-card">
+          <h3 class="admin-card-title">Register a walk-in guest</h3>
+
+          <p class="admin-muted admin-card-description">
+            Enter the guest's details, choose the stay dates and select an available room.
+            The booking must be checked against existing allocations and room blocks.
+          </p>
+
+          <div id="walkinStatus" class="admin-status" role="status" aria-live="polite" hidden></div>
+
+          <form id="walkinBookingForm" class="admin-form admin-form-grid">
+            <div class="admin-field">
+              <label for="walkinGuestName">Guest's full name</label>
+              <input
+                id="walkinGuestName"
+                name="guest_name"
+                type="text"
+                maxlength="150"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinGuestPhone">Phone number</label>
+              <input
+                id="walkinGuestPhone"
+                name="guest_phone"
+                type="tel"
+                maxlength="40"
+                autocomplete="tel"
+                required
+              >
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinGuestEmail">Email address (optional)</label>
+              <input
+                id="walkinGuestEmail"
+                name="guest_email"
+                type="email"
+                maxlength="254"
+                autocomplete="email"
+              >
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinGuests">Number of guests</label>
+              <input
+                id="walkinGuests"
+                name="guests"
+                type="number"
+                min="1"
+                max="100"
+                value="1"
+                required
+              >
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinCheckIn">Check-in date</label>
+              <input id="walkinCheckIn" name="check_in" type="date" required>
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinCheckOut">Check-out date</label>
+              <input id="walkinCheckOut" name="check_out" type="date" required>
+            </div>
+
+            <div class="admin-field admin-field-wide">
+              <label for="walkinRoom">Available room</label>
+              <select id="walkinRoom" name="room_id" required>
+                <option value="">Check dates to load available rooms</option>
+              </select>
+              <p class="admin-muted">
+                Only active rooms without overlapping bookings or room blocks should be offered.
+              </p>
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinCurrency">Billing currency</label>
+              <select id="walkinCurrency" name="currency" required>
+                <option value="USD">USD — US Dollar</option>
+                <option value="SSP">SSP — South Sudanese Pound</option>
+              </select>
+            </div>
+
+            <div class="admin-field">
+              <label for="walkinNightlyRate">Nightly rate</label>
+              <input
+                id="walkinNightlyRate"
+                name="nightly_rate"
+                type="number"
+                min="0"
+                step="0.01"
+                required
+                readonly
+              >
+            </div>
+
+            <div class="admin-field admin-field-wide">
+              <label for="walkinNotes">Staff notes (optional)</label>
+              <textarea
+                id="walkinNotes"
+                name="staff_notes"
+                rows="3"
+                maxlength="1000"
+                placeholder="Record relevant front-desk notes"
+              ></textarea>
+            </div>
+
+            <div class="admin-field admin-field-action">
+              <label class="admin-label-spacer" aria-hidden="true">Action</label>
+              <button id="checkWalkinAvailability" class="btn btn-outline" type="button">
+                Check availability
+              </button>
+            </div>
+
+            <div class="admin-field admin-field-action">
+              <label class="admin-label-spacer" aria-hidden="true">Action</label>
+              <button id="createWalkinBooking" class="btn btn-gold" type="submit">
+                Register walk-in booking
+              </button>
+            </div>
+          </form>
+
+          <div
+            id="walkinAvailabilityResults"
+            class="admin-status"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+        </section>
+      </section>
+
+      <!-- BOOKED ROOMS -->
+      <section id="booked-rooms-section" class="admin-section" hidden aria-labelledby="booked-rooms-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">CONFIRMED ALLOCATIONS</p>
+            <h2 id="booked-rooms-heading">Booked Rooms</h2>
+            <p class="admin-muted">
+              Rooms allocated to confirmed reservation requests.
+            </p>
+          </div>
+
+          <button id="exportBookedRooms" class="btn btn-outline" type="button">
+            Export booked rooms CSV
+          </button>
+        </div>
+
+        <section class="admin-card">
+          <div id="bookedRooms">
+            <p class="admin-empty-state">Loading booked rooms…</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- GUEST STAYS AND BILLING -->
+      <section id="billing-section" class="admin-section" hidden aria-labelledby="billing-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">GUEST ACCOUNTS</p>
+            <h2 id="billing-heading">Guest Stays &amp; Billing</h2>
+            <p class="admin-muted">
+              Manage registered guest stays, charges, payments and outstanding balances.
+            </p>
+          </div>
+
+          <button id="refreshBilling" class="btn btn-outline" type="button">
+            Refresh billing
+          </button>
+
+          <button id="exportBilling" class="btn btn-outline" type="button">
+            Export billing CSV
+          </button>
+        </div>
+
+        <div id="billingStatus" class="admin-status" role="status" aria-live="polite" hidden></div>
+        <div id="billingSummary" class="admin-metrics"></div>
+
+        <section class="admin-card">
+          <div id="billingStays">
+            <p class="admin-empty-state">Loading guest stays and billing…</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- CONTACT MESSAGES -->
+      <section id="messages-section" class="admin-section" hidden aria-labelledby="messages-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">GUEST COMMUNICATION</p>
+            <h2 id="messages-heading">Contact Messages</h2>
+            <p class="admin-muted">
+              Review and manage enquiries submitted through the hotel website.
+            </p>
+          </div>
+
+          <button id="exportMessages" class="btn btn-outline" type="button">
+            Export messages CSV
+          </button>
+        </div>
+
+        <div id="messages">
+          <p class="admin-empty-state">Loading contact messages…</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="admin-footer">
+    &copy; <span id="year"></span> East Afro Hotel · Staff Administration
+  </footer>
+
+  <!-- Load the Supabase library and project scripts in this order. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+  <script src="billing.js"></script>
+
+  <script>
+    'use strict';
+
+    const yearElement = document.getElementById('year');
+
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+
+    /*
+      Keep the sidebar's active visual state synchronized with the
+      section link the user clicks. admin.js remains responsible for
+      showing and hiding dashboard sections.
+    */
+    const dashboardLinks = document.querySelectorAll('[data-dashboard-link]');
+
+    dashboardLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        dashboardLinks.forEach(item => {
+          const isActive = item === link;
+
+          item.classList.toggle('is-active', isActive);
+
+          if (isActive) {
+            item.setAttribute('aria-current', 'page');
+          } else {
+            item.removeAttribute('aria-current');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

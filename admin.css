@@ -1,0 +1,1851 @@
+
+/* ==========================================================
+   EAST AFRO HOTEL
+   ADMIN DASHBOARD — COMPLETE STYLESHEET
+   Brand: Navy, Gold, Cream and White
+   Responsive desktop, tablet and mobile layouts
+   ========================================================== */
+
+/* 1. DESIGN TOKENS AND RESET
+   ---------------------------------------------------------- */
+
+:root {
+  --admin-navy: #0b1638;
+  --admin-navy-light: #142b50;
+  --admin-blue: #245ba7;
+  --admin-gold: #d7b46a;
+  --admin-gold-dark: #b99445;
+  --admin-cream: #f7f4ed;
+  --admin-white: #ffffff;
+  --admin-bg: #f4f5f8;
+  --admin-text: #252d3b;
+  --admin-muted: #737c8d;
+  --admin-border: #e4e7ed;
+  --admin-success: #247647;
+  --admin-success-bg: #eaf6ee;
+  --admin-warning: #986817;
+  --admin-warning-bg: #fff5dd;
+  --admin-danger: #b42332;
+  --admin-danger-bg: #fff0f0;
+  --admin-info-bg: #edf4ff;
+  --admin-radius: 14px;
+  --admin-shadow: 0 6px 24px rgba(11, 22, 56, 0.055);
+  --admin-shadow-hover: 0 12px 30px rgba(11, 22, 56, 0.09);
+}
+
+.admin-page {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-page *,
+.admin-page *::before,
+.admin-page *::after {
+  box-sizing: border-box;
+}
+
+.admin-page [hidden] {
+  display: none !important;
+}
+
+.admin-page img {
+  max-width: 100%;
+}
+
+.admin-page a {
+  overflow-wrap: anywhere;
+}
+
+.admin-page button,
+.admin-page input,
+.admin-page select,
+.admin-page textarea {
+  font: inherit;
+}
+
+.admin-page h1,
+.admin-page h2,
+.admin-page h3,
+.admin-page h4,
+.admin-page p {
+  overflow-wrap: anywhere;
+}
+
+.admin-page h1,
+.admin-page h2,
+.admin-page h3,
+.admin-page h4 {
+  color: var(--admin-navy);
+  line-height: 1.35;
+}
+
+.admin-page h1,
+.admin-page h2 {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.admin-page p {
+  margin-top: 0;
+}
+
+.admin-page a:focus-visible,
+.admin-page button:focus-visible,
+.admin-page input:focus-visible,
+.admin-page select:focus-visible,
+.admin-page textarea:focus-visible {
+  outline: 3px solid rgba(215, 180, 106, 0.7);
+  outline-offset: 3px;
+}
+
+.admin-container {
+  width: calc(100% - 48px);
+  max-width: 1760px;
+  margin-inline: auto;
+}
+
+/* 2. TOP BAR AND BRAND HEADER
+   ---------------------------------------------------------- */
+
+.admin-topbar {
+  background: var(--admin-navy);
+  color: #edf0f7;
+}
+
+.admin-topbar-inner {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.admin-topbar-divider {
+  margin-inline: 7px;
+  color: var(--admin-gold);
+}
+
+.admin-location {
+  color: #d3d9e5;
+}
+
+.admin-header {
+  position: relative;
+  z-index: 5;
+  background: var(--admin-white);
+  border-bottom: 1px solid var(--admin-border);
+  box-shadow: 0 3px 12px rgba(11, 22, 56, 0.035);
+}
+
+.admin-header-inner {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admin-brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  color: var(--admin-navy);
+  text-decoration: none;
+}
+
+.admin-brand img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.admin-brand span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.admin-brand strong {
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.admin-brand small {
+  color: var(--admin-muted);
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.admin-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-header-link {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 9px;
+  background: white;
+  color: var(--admin-navy);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-header-link:hover {
+  border-color: var(--admin-gold);
+  background: var(--admin-cream);
+}
+
+/* 3. PAGE INTRODUCTION
+   ---------------------------------------------------------- */
+
+.admin-main {
+  padding-top: 26px;
+  padding-bottom: 48px;
+}
+
+.admin-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+.admin-breadcrumb strong {
+  color: var(--admin-navy);
+}
+
+.admin-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.admin-intro h1 {
+  margin: 3px 0 8px;
+  font-size: clamp(28px, 3vw, 39px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.admin-intro p {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--admin-muted);
+  line-height: 1.75;
+}
+
+.admin-eyebrow {
+  margin-bottom: 5px !important;
+  color: var(--admin-gold-dark) !important;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 10px !important;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  line-height: 1.5;
+}
+
+.admin-intro-note {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border: 1px solid #dbe9df;
+  border-radius: 999px;
+  background: #f3faf5;
+  color: var(--admin-success);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-status-dot,
+.admin-sidebar-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: #31945b;
+}
+
+/* 4. STATUS AND ALERT MESSAGES
+   ---------------------------------------------------------- */
+
+.admin-status {
+  margin: 12px 0 18px;
+  padding: 13px 16px;
+  border: 1px solid #e2e6ed;
+  border-left: 4px solid var(--admin-gold);
+  border-radius: 9px;
+  background: white;
+  color: #39465b;
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.admin-status:empty {
+  display: none;
+}
+
+.admin-status.success,
+.admin-status.is-success {
+  border-color: #cde8d5;
+  border-left-color: var(--admin-success);
+  background: var(--admin-success-bg);
+  color: var(--admin-success);
+}
+
+.admin-status.error,
+.admin-status.is-error {
+  border-color: #f0cdcd;
+  border-left-color: var(--admin-danger);
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+}
+
+.admin-status.warning,
+.admin-status.is-warning {
+  border-color: #f0dfb3;
+  border-left-color: var(--admin-warning);
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning);
+}
+
+/* 5. LOGIN
+   ---------------------------------------------------------- */
+
+#login {
+  width: 100%;
+  max-width: 620px;
+  margin: 36px auto;
+}
+
+.admin-login-card {
+  padding: 30px;
+  border: 1px solid var(--admin-border);
+  border-radius: 18px;
+  background: white;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.admin-icon-box {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--admin-cream);
+  color: var(--admin-navy);
+  font-size: 22px;
+}
+
+.admin-card-heading h2 {
+  margin: 3px 0 6px;
+  font-size: 23px;
+}
+
+.admin-card-heading p:last-child {
+  margin-bottom: 0;
+  color: var(--admin-muted);
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-form-note {
+  margin: 0;
+  color: var(--admin-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* 6. DASHBOARD GRID AND SIDEBAR
+   ---------------------------------------------------------- */
+
+.admin-dashboard-layout {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 18px;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 19px 13px;
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-sidebar-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 11px 17px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-sidebar-kicker {
+  color: var(--admin-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.admin-sidebar-heading strong {
+  color: var(--admin-navy);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.admin-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 16px;
+}
+
+.admin-sidebar-link {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #4d5668;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.admin-sidebar-link > span {
+  display: inline-grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  place-items: center;
+  border-radius: 7px;
+  background: #f2f3f6;
+  color: var(--admin-navy);
+  font-size: 15px;
+}
+
+.admin-sidebar-link:hover {
+  border-color: #eee3ca;
+  background: var(--admin-cream);
+  color: var(--admin-navy);
+}
+
+.admin-sidebar-link.is-active {
+  border-color: var(--admin-navy);
+  background: var(--admin-navy);
+  color: white;
+  box-shadow: 0 5px 12px rgba(11, 22, 56, 0.12);
+}
+
+.admin-sidebar-link.is-active > span {
+  background: rgba(215, 180, 106, 0.17);
+  color: var(--admin-gold);
+}
+
+.admin-sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 15px 9px 2px;
+  border-top: 1px solid var(--admin-border);
+}
+
+.admin-sidebar-footer > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-sidebar-footer strong {
+  color: var(--admin-navy);
+  font-size: 11px;
+}
+
+.admin-sidebar-footer small {
+  color: var(--admin-muted);
+  font-size: 10px;
+}
+
+.admin-dashboard-content {
+  min-width: 0;
+}
+
+/* 7. DASHBOARD WORKSPACE HEADER
+   ---------------------------------------------------------- */
+
+.admin-workspace-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 27px;
+  padding: 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--admin-shadow);
+  scroll-margin-top: 20px;
+}
+
+.admin-workspace-bar h2 {
+  margin: 3px 0 6px;
+  font-size: clamp(23px, 2.3vw, 31px);
+  font-weight: 600;
+}
+
+.admin-workspace-bar .admin-muted {
+  margin-bottom: 0;
+}
+
+.admin-dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+/* 8. BUTTONS
+   ---------------------------------------------------------- */
+
+.admin-page button,
+.admin-page .btn {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 15px;
+  border: 1px solid var(--admin-navy);
+  border-radius: 9px;
+  background: var(--admin-navy);
+  color: white;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.admin-page button:hover:not(:disabled),
+.admin-page .btn:hover {
+  border-color: var(--admin-blue);
+  background: var(--admin-blue);
+}
+
+.admin-page button:active:not(:disabled),
+.admin-page .btn:active {
+  transform: translateY(1px);
+}
+
+.admin-page button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-page .btn-navy {
+  border-color: var(--admin-navy);
+  background: var(--admin-navy);
+  color: white;
+}
+
+.admin-page .btn-gold {
+  border-color: var(--admin-gold);
+  background: var(--admin-gold);
+  color: var(--admin-navy);
+}
+
+.admin-page .btn-gold:hover {
+  border-color: var(--admin-gold-dark);
+  background: var(--admin-gold-dark);
+  color: white;
+}
+
+.admin-page .btn-outline {
+  border-color: #d9deea;
+  background: white;
+  color: var(--admin-navy);
+}
+
+.admin-page .btn-outline:hover {
+  border-color: var(--admin-gold);
+  background: var(--admin-cream);
+  color: var(--admin-navy);
+}
+
+.admin-page .admin-submit {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 2px;
+}
+
+/* 9. SECTIONS AND CARDS
+   ---------------------------------------------------------- */
+
+.admin-section {
+  min-width: 0;
+  margin-bottom: 34px;
+  scroll-margin-top: 20px;
+}
+
+.admin-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.admin-section-heading h2 {
+  margin: 3px 0 6px;
+  font-size: clamp(21px, 1.8vw, 27px);
+  font-weight: 600;
+}
+
+.admin-section-heading .admin-muted {
+  max-width: 780px;
+  margin-bottom: 0;
+}
+
+.admin-section-caption {
+  color: var(--admin-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.admin-muted {
+  color: var(--admin-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.admin-card {
+  min-width: 0;
+  margin-bottom: 17px;
+  padding: 22px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: white;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-card-title {
+  margin: 0 0 7px;
+  color: var(--admin-navy);
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.admin-card-description {
+  margin-bottom: 18px;
+}
+
+.admin-card-heading-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.admin-card-heading-compact h3,
+.admin-card-heading-compact p {
+  margin-bottom: 4px;
+}
+
+.admin-table-card {
+  overflow: hidden;
+}
+
+.admin-empty-state {
+  padding: 20px;
+  color: var(--admin-muted);
+  text-align: center;
+}
+
+/* 10. FORMS AND INPUTS
+   ---------------------------------------------------------- */
+
+.admin-form {
+  min-width: 0;
+}
+
+.admin-form-grid,
+.admin-form.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.admin-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.admin-field-wide {
+  grid-column: 1 / -1;
+}
+
+.admin-field-action {
+  justify-content: flex-end;
+}
+
+.admin-field-action .btn,
+.admin-field-action button {
+  width: 100%;
+}
+
+.admin-field label,
+.admin-calendar-controls label {
+  color: #3d4658;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-label-spacer {
+  visibility: hidden;
+}
+
+.admin-page input:not([type="checkbox"]):not([type="radio"]),
+.admin-page select,
+.admin-page textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 43px;
+  padding: 10px 12px;
+  border: 1px solid #dce1e9;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--admin-text);
+  font-size: 13px;
+  line-height: 1.5;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.admin-page textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-page input::placeholder,
+.admin-page textarea::placeholder {
+  color: #a1a8b5;
+}
+
+.admin-page input:focus,
+.admin-page select:focus,
+.admin-page textarea:focus {
+  border-color: var(--admin-blue);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(36, 91, 167, 0.1);
+}
+
+.admin-page input:disabled,
+.admin-page select:disabled,
+.admin-page textarea:disabled {
+  background: #f1f2f5;
+  cursor: not-allowed;
+}
+
+.admin-page input[type="checkbox"],
+.admin-page input[type="radio"] {
+  accent-color: var(--admin-navy);
+}
+
+.admin-login-form .admin-field {
+  margin-bottom: 0;
+}
+
+/* 11. METRIC CARDS
+   ---------------------------------------------------------- */
+
+.metrics,
+.admin-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.metric {
+  position: relative;
+  min-width: 0;
+  padding: 19px;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--admin-border);
+  border-radius: 13px;
+  background: white;
+  box-shadow: 0 4px 17px rgba(11, 22, 56, 0.035);
+}
+
+.metric h3,
+.metric h4 {
+  margin: 0 0 8px;
+  color: var(--admin-muted);
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.metric strong,
+.metric .metric-value,
+.metric .value {
+  display: block;
+  color: var(--admin-navy);
+  font-size: clamp(20px, 2vw, 29px);
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.metric p {
+  margin: 7px 0 0;
+  color: var(--admin-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.metric::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 38px;
+  border-radius: 13px 0 4px 0;
+  background: var(--admin-gold);
+  content: "";
+}
+
+.billing-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+/* 12. DATA TABLES
+   ---------------------------------------------------------- */
+
+.admin-table-wrap {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.admin-table-wrap table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: white;
+  font-size: 12px;
+}
+
+.admin-table-wrap thead th {
+  background: #f5f2ea;
+  color: var(--admin-navy);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.admin-table-wrap th,
+.admin-table-wrap td {
+  padding: 13px 15px;
+  border-bottom: 1px solid #eceef2;
+  vertical-align: top;
+  text-align: left;
+}
+
+.admin-table-wrap tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-table-wrap tbody tr:hover {
+  background: #fcfaf5;
+}
+
+.admin-table-wrap td {
+  color: #4a5363;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.admin-table-wrap td strong {
+  color: var(--admin-navy);
+}
+
+.admin-table-wrap td button {
+  margin: 2px 4px 2px 0;
+}
+
+.admin-table-wrap .btn,
+.admin-table-wrap button {
+  min-height: 32px;
+  padding: 7px 10px;
+  font-size: 10px;
+}
+
+/* 13. STATUS LABELS
+   ---------------------------------------------------------- */
+
+.admin-page .status,
+.admin-page .badge,
+.admin-page .pill,
+.admin-page .record-status,
+.admin-page [class*="status-badge"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  max-width: 100%;
+  padding: 5px 9px;
+  border: 1px solid #e1e5ec;
+  border-radius: 999px;
+  background: #f4f5f7;
+  color: #566073;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.admin-page .status-confirmed,
+.admin-page .status-paid,
+.admin-page .status-checked-in,
+.admin-page .status-available,
+.admin-page .status-completed {
+  border-color: #cce7d4;
+  background: var(--admin-success-bg);
+  color: var(--admin-success);
+}
+
+.admin-page .status-pending,
+.admin-page .status-unpaid,
+.admin-page .status-reserved {
+  border-color: #f0dfb3;
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning);
+}
+
+.admin-page .status-cancelled,
+.admin-page .status-rejected,
+.admin-page .status-overdue {
+  border-color: #f1cccc;
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+}
+
+/* 14. RESERVATION AND MESSAGE RECORD CARDS
+   ---------------------------------------------------------- */
+
+.admin-record-card,
+.record-card,
+.reservation-card {
+  min-width: 0;
+  margin-bottom: 15px;
+  padding: 19px;
+  border: 1px solid var(--admin-border);
+  border-radius: 13px;
+  background: white;
+  box-shadow: 0 4px 16px rgba(11, 22, 56, 0.035);
+}
+
+.admin-record-card .record-header,
+.record-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.admin-record-card h3,
+.record-card h3,
+.reservation-card h3 {
+  margin: 0 0 5px;
+  color: var(--admin-navy);
+  font-size: 15px;
+}
+
+.record-received {
+  color: var(--admin-muted);
+  font-size: 10px;
+  text-align: right;
+}
+
+.record-contact-grid,
+.reservation-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.record-contact-grid > div,
+.reservation-detail-grid > div {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #edf0f4;
+  border-radius: 9px;
+  background: #fafbfc;
+  overflow-wrap: anywhere;
+}
+
+.record-contact-grid small,
+.reservation-detail-grid small {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--admin-muted);
+  font-size: 10px;
+}
+
+.record-contact-grid strong,
+.reservation-detail-grid strong {
+  color: var(--admin-navy);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.record-actions,
+.reservation-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.admin-record-card .record-button,
+.record-button {
+  min-height: 35px;
+  padding: 8px 11px;
+  font-size: 11px;
+}
+
+.admin-record-card .record-message,
+.record-message {
+  margin: 12px 0;
+  padding: 13px;
+  border-radius: 9px;
+  background: #f7f8fa;
+  color: #4d5667;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+/* 15. GUEST STAYS, BILLING AND REVENUE
+   ---------------------------------------------------------- */
+
+.billing-section {
+  padding: 21px;
+  border: 1px solid #e8e2d4;
+  border-radius: 17px;
+  background: #f9f7f1;
+}
+
+.billing-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.billing-status {
+  margin-bottom: 17px;
+}
+
+.billing-summary-panel,
+.billing-stays-panel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 5px 20px rgba(11, 22, 56, 0.035);
+}
+
+.billing-summary-panel {
+  margin-bottom: 18px;
+}
+
+.billing-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.billing-panel-heading h3 {
+  margin: 3px 0 6px;
+  color: var(--admin-navy);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 21px;
+}
+
+.billing-panel-heading p {
+  margin-bottom: 0;
+}
+
+.billing-currency-note {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--admin-cream);
+  color: var(--admin-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.billing-stays-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.billing-stays-list > * {
+  min-width: 0;
+}
+
+.billing-stays-list .admin-record-card,
+.billing-stays-list .record-card,
+.billing-stays-list .stay-card,
+.billing-stays-list .guest-folio {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.billing-history,
+.billing-history-grid,
+.billing-ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.billing-history > *,
+.billing-history-grid > *,
+.billing-ledger-grid > * {
+  min-width: 0;
+}
+
+.billing-stays-list .record-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.billing-stays-list .reservation-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.billing-stays-list .reservation-action-buttons button,
+.billing-stays-list .reservation-action-buttons .record-button {
+  flex: 1 1 auto;
+}
+
+.billing-stays-list .admin-table-wrap table {
+  min-width: 450px;
+}
+
+/* 16. ROOM CALENDAR AND ROOM BLOCKS
+   ---------------------------------------------------------- */
+
+.admin-calendar-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 17px;
+}
+
+.admin-calendar-toolbar h3 {
+  margin: 0 0 5px;
+}
+
+.admin-calendar-toolbar p {
+  margin-bottom: 0;
+}
+
+.admin-calendar-controls {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.admin-calendar-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-calendar-controls input {
+  min-width: 155px;
+}
+
+.admin-calendar-content {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.admin-calendar-content table {
+  width: 100%;
+  min-width: 580px;
+  border-collapse: collapse;
+}
+
+.admin-calendar-content th,
+.admin-calendar-content td {
+  padding: 10px;
+  border: 1px solid var(--admin-border);
+  font-size: 11px;
+  text-align: left;
+}
+
+.admin-calendar-content th {
+  background: var(--admin-cream);
+  color: var(--admin-navy);
+}
+
+/* 17. SHARED TEXT AND UTILITY STYLES
+   ---------------------------------------------------------- */
+
+.admin-page hr {
+  border: 0;
+  border-top: 1px solid var(--admin-border);
+}
+
+.admin-page code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #f0f2f5;
+  color: var(--admin-navy);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.admin-page pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.admin-page .text-muted {
+  color: var(--admin-muted);
+}
+
+.admin-page .text-success {
+  color: var(--admin-success);
+}
+
+.admin-page .text-danger {
+  color: var(--admin-danger);
+}
+
+.admin-page .empty-state {
+  padding: 22px;
+  color: var(--admin-muted);
+  text-align: center;
+}
+
+.admin-page .loading {
+  color: var(--admin-muted);
+  text-align: center;
+}
+
+/* 18. FOOTER
+   ---------------------------------------------------------- */
+
+.admin-footer {
+  border-top: 1px solid var(--admin-border);
+  background: white;
+}
+
+.admin-footer-inner {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  color: var(--admin-muted);
+  font-size: 11px;
+}
+
+/* 19. RESPONSIVE — MEDIUM DESKTOP
+   ---------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+  .admin-dashboard-layout {
+    grid-template-columns: 225px minmax(0, 1fr);
+    gap: 19px;
+  }
+
+  .admin-container {
+    width: calc(100% - 40px);
+  }
+
+  .admin-sidebar-link {
+    font-size: 11px;
+  }
+
+  .metrics,
+  .admin-metrics,
+  .billing-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 20. RESPONSIVE — TABLET
+   ---------------------------------------------------------- */
+
+@media (max-width: 950px) {
+  .admin-dashboard-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+  }
+
+  .admin-sidebar {
+    position: static;
+    padding: 15px;
+  }
+
+  .admin-sidebar-heading {
+    padding-bottom: 12px;
+  }
+
+  .admin-sidebar-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 12px;
+  }
+
+  .admin-sidebar-link {
+    min-width: 0;
+    font-size: 12px;
+  }
+
+  .admin-sidebar-footer {
+    margin-top: 13px;
+    padding-top: 12px;
+  }
+
+  .admin-workspace-bar {
+    margin-bottom: 23px;
+  }
+
+  .billing-stays-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 21. RESPONSIVE — MOBILE
+   ---------------------------------------------------------- */
+
+@media (max-width: 650px) {
+  .admin-container {
+    width: calc(100% - 28px);
+  }
+
+  .admin-topbar-inner {
+    min-height: 36px;
+    font-size: 10px;
+  }
+
+  .admin-location {
+    text-align: right;
+  }
+
+  .admin-header-inner {
+    min-height: 68px;
+    gap: 10px;
+  }
+
+  .admin-brand {
+    gap: 8px;
+  }
+
+  .admin-brand img {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
+  }
+
+  .admin-brand span {
+    font-size: 15px;
+  }
+
+  .admin-brand small {
+    font-size: 9px;
+  }
+
+  .admin-header-link {
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .admin-main {
+    padding-top: 18px;
+    padding-bottom: 30px;
+  }
+
+  .admin-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .admin-intro h1 {
+    font-size: 29px;
+  }
+
+  .admin-dashboard-layout {
+    margin-top: 16px;
+  }
+
+  .admin-sidebar-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-sidebar-link {
+    min-height: 41px;
+  }
+
+  .admin-workspace-bar {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 17px;
+  }
+
+  .admin-dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .admin-dashboard-actions .btn {
+    width: 100%;
+  }
+
+  .admin-section {
+    margin-bottom: 27px;
+  }
+
+  .admin-section-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .admin-section-heading > button {
+    width: 100%;
+  }
+
+  .admin-section-caption {
+    white-space: normal;
+  }
+
+  .admin-card {
+    padding: 16px;
+  }
+
+  .admin-form-grid,
+  .admin-form.admin-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .admin-field-wide {
+    grid-column: auto;
+  }
+
+  .admin-label-spacer {
+    display: none;
+  }
+
+  .admin-field-action .btn,
+  .admin-field-action button {
+    width: 100%;
+  }
+
+  .metrics,
+  .admin-metrics,
+  .billing-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .metric {
+    padding: 14px;
+  }
+
+  .metric strong,
+  .metric .metric-value,
+  .metric .value {
+    font-size: 22px;
+  }
+
+  .billing-section {
+    padding: 12px;
+  }
+
+  .billing-summary-panel,
+  .billing-stays-panel {
+    padding: 14px;
+  }
+
+  .billing-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .billing-panel-heading h3 {
+    font-size: 19px;
+  }
+
+  .billing-currency-note {
+    white-space: normal;
+  }
+
+  .billing-toolbar-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .billing-toolbar-actions .btn {
+    width: 100%;
+  }
+
+  .billing-stays-list,
+  .billing-history,
+  .billing-history-grid,
+  .billing-ledger-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .billing-stays-list .record-contact-grid,
+  .record-contact-grid,
+  .reservation-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .billing-stays-list .reservation-action-buttons {
+    flex-direction: column;
+  }
+
+  .billing-stays-list .reservation-action-buttons button,
+  .billing-stays-list .reservation-action-buttons .record-button {
+    width: 100%;
+  }
+
+  .admin-record-card .record-header,
+  .record-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .record-received {
+    text-align: left;
+  }
+
+  .admin-calendar-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-calendar-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-calendar-controls label,
+  .admin-calendar-controls input,
+  .admin-calendar-controls button {
+    width: 100%;
+  }
+
+  .admin-footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+}
+
+/* 22. RESPONSIVE — SMALL PHONES
+   ---------------------------------------------------------- */
+
+@media (max-width: 380px) {
+  .admin-container {
+    width: calc(100% - 22px);
+  }
+
+  .admin-topbar-inner {
+    gap: 7px;
+    font-size: 9px;
+  }
+
+  .admin-header-link {
+    padding: 7px;
+    font-size: 9px;
+  }
+
+  .admin-brand img {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .admin-brand span {
+    font-size: 13px;
+  }
+
+  .admin-brand small {
+    font-size: 8px;
+  }
+
+  .admin-login-card {
+    padding: 18px;
+  }
+
+  .admin-dashboard-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .metrics,
+  .admin-metrics,
+  .billing-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-card {
+    padding: 13px;
+  }
+
+  .admin-workspace-bar {
+    padding: 14px;
+  }
+
+  .billing-section {
+    padding: 9px;
+  }
+
+  .billing-summary-panel,
+  .billing-stays-panel {
+    padding: 11px;
+  }
+
+  .admin-page button,
+  .admin-page .btn {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+}
+
+/* 23. ACCESSIBILITY AND MOTION
+   ---------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-page *,
+  .admin-page *::before,
+  .admin-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =====================================================
+   EAST AFRO HOTEL — ROOM INVENTORY ENHANCEMENTS
+   ===================================================== */
+
+.admin-inventory-toolbar {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(150px, 220px) auto;
+  align-items: end;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.admin-inventory-toolbar .admin-field {
+  min-width: 0;
+}
+
+.admin-inventory-toolbar input,
+.admin-inventory-toolbar select,
+#inventoryAvailabilityForm input,
+#editRoomForm input,
+#editRoomForm select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#inventorySummary {
+  margin-bottom: 1.25rem;
+}
+
+#inventorySummary .metric-card {
+  min-width: 0;
+}
+
+#inventorySummary .metric-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#inventoryAvailabilityResults {
+  margin-top: 1rem;
+  white-space: pre-line;
+}
+
+#inventoryAvailabilityResults[hidden] {
+  display: none;
+}
+
+.admin-edit-room-dialog {
+  width: min(520px, calc(100% - 2rem));
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+  color: #172033;
+}
+
+.admin-edit-room-dialog::backdrop {
+  background: rgb(8 18 40 / 60%);
+}
+
+.admin-edit-room-dialog .admin-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-edit-room-dialog .admin-field {
+  margin-bottom: 1rem;
+}
+
+.admin-edit-room-dialog .admin-dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+#inventory .admin-table,
+#inventory table {
+  width: 100%;
+}
+
+#inventory .inventory-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#inventory .inventory-action-buttons button {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .admin-inventory-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-inventory-toolbar > button {
+    width: 100%;
+  }
+
+  .admin-edit-room-dialog {
+    padding: 1rem;
+  }
+
+  #inventorySummary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #inventoryAvailabilityForm {
+    grid-template-columns: 1fr;
+  }
+}

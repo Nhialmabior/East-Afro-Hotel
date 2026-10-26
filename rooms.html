@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Our Rooms | East Afro Hotel, Juba</title>
+  <meta name="description" content="Explore illustrative accommodation options at East Afro Hotel in Juba, South Sudan. Contact the hotel to confirm room types, rates, amenities, and availability.">
+  <meta name="theme-color" content="#0b1638">
+
+  <link rel="icon" href="assets/favicon/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .rooms-hero {
+      min-height: 580px;
+      height: 72vh;
+      max-height: 760px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(4,13,33,.86), rgba(6,18,39,.35)),
+        url("https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1800&q=85")
+        center 55% / cover no-repeat;
+    }
+
+    .rooms-hero .container {
+      position: relative;
+      z-index: 1;
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .rooms-hero h1 {
+      max-width: 780px;
+      margin: 22px 0;
+      font-size: clamp(3rem, 6.4vw, 5.8rem);
+      line-height: 1.08;
+      color: #fff;
+    }
+
+    .rooms-hero h1 em {
+      color: var(--lightgold);
+    }
+
+    .rooms-hero p {
+      max-width: 590px;
+      color: #e4e7ea;
+      font-size: 16px;
+    }
+
+    .rooms-hero-actions,
+    .rooms-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .rooms-section {
+      padding: 95px 0;
+    }
+
+    .rooms-intro {
+      display: block;
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .rooms-intro h2 {
+      margin: 15px 0 20px;
+    }
+
+    .rooms-intro p {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .rooms-intro .gold-rule {
+      margin: 25px auto 0;
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+      align-items: stretch;
+    }
+
+    .rooms-grid .room-card {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #e7e7e2;
+      border-radius: 0;
+      background: #fff;
+      box-shadow: 0 8px 30px #121b2c0b;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .rooms-grid .room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px #121b2c15;
+    }
+
+    .room-image {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      background: #e9e9e6;
+    }
+
+    .room-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .room-card:hover .room-image img {
+      transform: scale(1.04);
+    }
+
+    .room-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 25px;
+    }
+
+    .room-category {
+      color: #a17a29;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .room-content h3 {
+      margin: 12px 0;
+      color: var(--navy);
+      font-size: 27px;
+    }
+
+    .room-content p {
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .room-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 14px 0 24px;
+      list-style: none;
+    }
+
+    .room-features li {
+      padding: 6px 10px;
+      background: var(--cream);
+      color: #465064;
+      font-size: 11px;
+    }
+
+    .room-content .btn {
+      width: 100%;
+      margin-top: auto;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .rooms-notice {
+      max-width: 900px;
+      margin: 30px auto 0;
+      padding: 18px 21px;
+      border-left: 3px solid var(--gold);
+      background: #faf6eb;
+      color: #51462e;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .rooms-experience-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 75px;
+    }
+
+    .rooms-experience-image {
+      position: relative;
+    }
+
+    .rooms-experience-image img {
+      display: block;
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+    }
+
+    .rooms-experience-copy {
+      max-width: 520px;
+    }
+
+    .rooms-experience-copy h2 {
+      margin: 15px 0 20px;
+    }
+
+    .rooms-experience-copy p {
+      font-size: 14px;
+    }
+
+    .rooms-checklist {
+      padding: 0;
+      margin: 25px 0 28px;
+      list-style: none;
+    }
+
+    .rooms-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 15px 0;
+      color: #394253;
+      font-size: 13px;
+    }
+
+    .rooms-checklist li::before {
+      content: "✓";
+      flex: 0 0 auto;
+      color: #a17a29;
+      font-weight: 800;
+    }
+
+    .rooms-cta {
+      padding: 90px 0;
+      background:
+        linear-gradient(rgba(9,21,42,.87), rgba(9,21,42,.90)),
+        url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=85")
+        center / cover no-repeat;
+      color: #fff;
+      text-align: center;
+    }
+
+    .rooms-cta h2 {
+      margin: 15px 0 20px;
+      color: #fff;
+    }
+
+    .rooms-cta h2 em {
+      color: var(--lightgold);
+    }
+
+    .rooms-cta p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: #e4e7ea;
+    }
+
+    .rooms-cta-actions {
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .rooms-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .rooms-experience-grid {
+        gap: 35px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .rooms-hero {
+        min-height: 520px;
+        height: auto;
+      }
+
+      .rooms-hero h1 {
+        font-size: clamp(2.8rem, 12vw, 4rem);
+      }
+
+      .rooms-hero-actions .btn {
+        width: 100%;
+      }
+
+      .rooms-section {
+        padding: 70px 0;
+      }
+
+      .rooms-grid,
+      .rooms-experience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .room-image {
+        height: 245px;
+      }
+
+      .rooms-experience-image img {
+        height: 330px;
+      }
+
+      .rooms-cta {
+        padding: 65px 0;
+      }
+
+      .rooms-cta-actions .btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .room-card,
+      .room-image img {
+        transition: none;
+      }
+
+      .room-card:hover,
+      .room-card:hover .room-image img {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="topbar">
+    <span>East Afro Hotel · Juba, South Sudan</span>
+    <span>Comfort · Hospitality · Convenience</span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="index.html" aria-label="East Afro Hotel homepage">
+      <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+      <span>
+        EAST AFRO
+        <small>HOTEL · JUBA</small>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-controls="nav"
+      aria-expanded="false"
+    >☰</button>
+
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="rooms.html" aria-current="page">Rooms</a>
+      <a href="dining.html">Dining</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-gold" href="booking.html">Book a Stay</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="rooms-hero">
+      <div class="container">
+        <span class="eyebrow light">Your Stay in Juba</span>
+        <h1>A Place to Rest and <em>Recharge</em></h1>
+        <p>
+          Explore accommodation styles designed around comfort and relaxation.
+          Contact our team to confirm the actual room options, amenities,
+          rates, and availability offered by East Afro Hotel.
+        </p>
+
+        <div class="rooms-hero-actions">
+          <a class="btn btn-gold" href="booking.html">Request a Reservation</a>
+          <a class="btn btn-outline" href="contact.html">Ask a Question</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rooms-section" id="room-options">
+      <div class="container">
+        <div class="section-head rooms-intro">
+          <span class="eyebrow">Accommodation</span>
+          <h2>Explore Our Room Options</h2>
+          <p>
+            Every traveller has different needs. Explore these illustrative
+            room styles and ask our team which accommodation options are
+            currently available for your visit.
+          </p>
+          <div class="gold-rule"></div>
+        </div>
+
+        <div class="rooms-grid">
+          <article class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85"
+                alt="Illustrative hotel bedroom with neatly arranged bedding"
+                loading="lazy"
+              >
+              <span class="tag">Accommodation</span>
+            </div>
+
+            <div class="room-content">
+              <span class="room-category">For Individual Travellers</span>
+              <h3>Standard Room</h3>
+              <p>
+                A practical accommodation style for guests looking for a
+                comfortable place to rest during a visit to Juba.
+              </p>
+
+              <ul class="room-features">
+                <li>Room details to confirm</li>
+                <li>Rates on request</li>
+              </ul>
+
+              <a
+                class="btn btn-navy room-book"
+                data-room="Standard Room"
+                href="booking.html?room=Standard%20Room"
+              >Enquire About This Room</a>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=85"
+                alt="Illustrative bedroom with modern hotel-style furnishings"
+                loading="lazy"
+              >
+              <span class="tag">Accommodation</span>
+            </div>
+
+            <div class="room-content">
+              <span class="room-category">For Added Space</span>
+              <h3>Deluxe Room</h3>
+              <p>
+                An accommodation style for travellers who prefer a more
+                spacious setting. Ask about actual room features and options.
+              </p>
+
+              <ul class="room-features">
+                <li>Features to confirm</li>
+                <li>Rates on request</li>
+              </ul>
+
+              <a
+                class="btn btn-navy room-book"
+                data-room="Deluxe Room"
+                href="booking.html?room=Deluxe%20Room"
+              >Enquire About This Room</a>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85"
+                alt="Illustrative hotel bedroom with inviting furnishings"
+                loading="lazy"
+              >
+              <span class="tag">Accommodation</span>
+            </div>
+
+            <div class="room-content">
+              <span class="room-category">For Business and Longer Visits</span>
+              <h3>Executive Room</h3>
+              <p>
+                An accommodation style to enquire about for business trips
+                or longer visits. Confirm the actual room category and
+                included amenities before booking.
+              </p>
+
+              <ul class="room-features">
+                <li>Availability to confirm</li>
+                <li>Rates on request</li>
+              </ul>
+
+              <a
+                class="btn btn-navy room-book"
+                data-room="Executive Room"
+                href="booking.html?room=Executive%20Room"
+              >Enquire About This Room</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="rooms-notice">
+          <strong>Important:</strong> The room categories and Unsplash
+          photographs on this page are illustrative. They do not verify
+          East Afro Hotel's actual room inventory, facilities, or prices.
+          Confirm the real room types, rates, occupancy limits, and amenities
+          with the hotel before publishing them as confirmed facts.
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container rooms-experience-grid">
+        <div class="rooms-experience-image">
+          <img
+            src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1200&q=85"
+            alt="Illustrative hotel exterior and landscaped surroundings"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="rooms-experience-copy">
+          <span class="eyebrow">Plan with Confidence</span>
+          <h2>Find the Right Option for Your Visit</h2>
+          <p>
+            Before submitting a reservation request, share your travel dates
+            and requirements. The hotel team can confirm available options
+            and explain applicable charges.
+          </p>
+
+          <ul class="rooms-checklist">
+            <li>Confirm the room category and number of guests.</li>
+            <li>Ask which amenities are included in the rate.</li>
+            <li>Check check-in and check-out arrangements.</li>
+            <li>Ask about cancellation and payment policies.</li>
+          </ul>
+
+          <a class="btn btn-navy" href="contact.html">Ask a Question</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rooms-cta">
+      <div class="container">
+        <span class="eyebrow light">Your Visit to Juba</span>
+        <h2>Ready to Plan Your <em>Stay?</em></h2>
+        <p>
+          Send a reservation request with your preferred dates and room
+          requirements. Your stay remains subject to confirmation by the hotel.
+        </p>
+
+        <div class="rooms-cta-actions">
+          <a class="btn btn-gold" href="booking.html">Request a Reservation</a>
+          <a class="btn btn-outline" href="contact.html">Contact the Hotel</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand footer-brand" href="index.html" aria-label="East Afro Hotel homepage">
+            <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+            <span>
+              EAST AFRO
+              <small>HOTEL · JUBA</small>
+            </span>
+          </a>
+          <p>
+            A welcoming destination for your stay in Juba, South Sudan.
+            Contact our team to plan your visit.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="about.html">About Us</a>
+          <a href="rooms.html" aria-current="page">Our Rooms</a>
+          <a href="dining.html">Dining</a>
+          <a href="facilities.html">Facilities</a>
+        </div>
+
+        <div>
+          <h4>Discover</h4>
+          <a href="events.html">Events &amp; Meetings</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="booking.html">Book a Stay</a>
+        </div>
+
+        <div>
+          <h4>Location</h4>
+          <p>Juba, South Sudan</p>
+          <p>Contact the hotel to confirm room availability and rates.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> East Afro Hotel. All rights reserved.</p>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >↑</button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

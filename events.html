@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Events & Meetings | East Afro Hotel, Juba</title>
+  <meta name="description" content="Enquire about meetings, private celebrations, and group gatherings at East Afro Hotel in Juba, South Sudan.">
+  <meta name="theme-color" content="#0b1638">
+
+  <link rel="icon" href="assets/favicon/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .events-hero {
+      position: relative;
+      display: flex;
+      min-height: 440px;
+      align-items: center;
+      padding: 80px 0;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(11,22,56,.92), rgba(11,22,56,.48)),
+        url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=2000&q=85")
+        center 52% / cover no-repeat;
+    }
+
+    .events-hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .events-eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #c9a34a;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .events-hero .events-eyebrow,
+    .events-cta .events-eyebrow {
+      color: #e8cc82;
+    }
+
+    .events-hero h1 {
+      max-width: 760px;
+      margin: 0 0 20px;
+      color: #fff;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 4.25rem);
+      line-height: 1.12;
+    }
+
+    .events-hero p {
+      max-width: 650px;
+      margin: 0 0 28px;
+      color: rgba(255,255,255,.9);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .events-hero-actions,
+    .events-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .events-section {
+      padding: 76px 0;
+    }
+
+    .events-section-light {
+      background: #f7f7f5;
+    }
+
+    .events-heading {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .events-heading h2,
+    .events-story h2,
+    .events-cta h2 {
+      margin: 0 0 18px;
+      color: #0b1638;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .events-heading p,
+    .events-story p {
+      color: #69717d;
+      line-height: 1.9;
+    }
+
+    .events-heading .gold-rule {
+      margin: 22px auto 0;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    .event-card {
+      overflow: hidden;
+      border: 1px solid #e8e8e4;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(11,22,56,.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 38px rgba(11,22,56,.11);
+    }
+
+    .event-card img {
+      display: block;
+      width: 100%;
+      height: 245px;
+      object-fit: cover;
+    }
+
+    .event-card-content {
+      padding: 25px;
+    }
+
+    .event-card-content h3 {
+      margin: 0 0 12px;
+      color: #0b1638;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.4rem;
+    }
+
+    .event-card-content p {
+      margin: 0 0 18px;
+      color: #69717d;
+      line-height: 1.8;
+    }
+
+    .event-card-content a {
+      color: #8c6a20;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .event-card-content a:hover {
+      text-decoration: underline;
+    }
+
+    .events-story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 55px;
+    }
+
+    .events-story-image img {
+      display: block;
+      width: 100%;
+      min-height: 360px;
+      max-height: 490px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 18px 45px rgba(11,22,56,.12);
+    }
+
+    .events-story p + p {
+      margin-top: 15px;
+    }
+
+    .events-note {
+      margin-top: 24px;
+      padding: 17px 19px;
+      border-left: 3px solid #c9a34a;
+      border-radius: 4px;
+      background: #faf6eb;
+      color: #51462e;
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+
+    .events-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 38px;
+    }
+
+    .events-benefit {
+      padding: 25px;
+      border: 1px solid #e8e8e4;
+      border-radius: 9px;
+      background: #fff;
+    }
+
+    .events-benefit .benefit-number {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #a17a29;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.6rem;
+    }
+
+    .events-benefit h3 {
+      margin: 0 0 10px;
+      color: #0b1638;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.2rem;
+    }
+
+    .events-benefit p {
+      margin: 0;
+      color: #69717d;
+      line-height: 1.8;
+    }
+
+    .events-cta {
+      padding: 76px 20px;
+      background: #0b1638;
+      color: #fff;
+      text-align: center;
+    }
+
+    .events-cta h2 {
+      max-width: 780px;
+      margin: 0 auto 18px;
+      color: #fff;
+    }
+
+    .events-cta p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: rgba(255,255,255,.83);
+      line-height: 1.85;
+    }
+
+    .events-cta-actions {
+      justify-content: center;
+    }
+
+    @media (max-width: 850px) {
+      .events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .events-story-grid {
+        gap: 32px;
+      }
+
+      .events-benefits {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .events-hero {
+        min-height: 390px;
+        padding: 60px 0;
+      }
+
+      .events-section {
+        padding: 55px 0;
+      }
+
+      .events-grid,
+      .events-story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event-card img {
+        height: 225px;
+      }
+
+      .events-story-image img {
+        min-height: 250px;
+        max-height: 340px;
+      }
+
+      .events-cta {
+        padding: 58px 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .event-card {
+        transition: none;
+      }
+
+      .event-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="topbar">
+    <span>East Afro Hotel · Juba, South Sudan</span>
+    <span>Comfort · Hospitality · Convenience</span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="index.html" aria-label="East Afro Hotel homepage">
+      <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+      <span>
+        EAST AFRO
+        <small>HOTEL · JUBA</small>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-controls="nav"
+      aria-expanded="false"
+    >☰</button>
+
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="dining.html">Dining</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="events.html" aria-current="page">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-gold" href="booking.html">Book a Stay</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="events-hero">
+      <div class="container">
+        <span class="events-eyebrow">Meetings & Occasions</span>
+        <h1>Bring People Together for Meaningful Moments</h1>
+        <p>
+          Planning a business meeting, a private celebration, or a group
+          gathering in Juba? Start a conversation with our team about your
+          event requirements and the arrangements that may be available.
+        </p>
+        <div class="events-hero-actions">
+          <a class="btn btn-gold" href="contact.html">Enquire About an Event</a>
+          <a class="btn btn-outline" href="#event-options">Explore Event Ideas</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="event-options">
+      <div class="container">
+        <div class="section-head events-heading">
+          <span class="eyebrow">Possibilities</span>
+          <h2>Ideas for Your Next Gathering</h2>
+          <p>
+            Every event has its own purpose. Tell us what you have in mind
+            so the hotel can advise you about suitable spaces, arrangements,
+            and current availability.
+          </p>
+          <div class="gold-rule"></div>
+        </div>
+
+        <div class="events-grid">
+          <article class="event-card">
+            <img
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85"
+              alt="Tables arranged inside a welcoming venue"
+              loading="lazy"
+            >
+            <div class="event-card-content">
+              <h3>Business Meetings</h3>
+              <p>
+                Discuss your meeting requirements, expected attendance,
+                seating preferences, and any equipment you may need.
+              </p>
+              <a href="contact.html">Ask about meetings →</a>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img
+              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=85"
+              alt="Decorated tables for a special occasion"
+              loading="lazy"
+            >
+            <div class="event-card-content">
+              <h3>Private Celebrations</h3>
+              <p>
+                Enquire about possible arrangements for birthdays,
+                anniversaries, family gatherings, and other special days.
+              </p>
+              <a href="contact.html">Discuss a celebration →</a>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img
+              src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
+              alt="People attending a professional gathering"
+              loading="lazy"
+            >
+            <div class="event-card-content">
+              <h3>Group Gatherings</h3>
+              <p>
+                Share details about your group, preferred date, and
+                arrangements so the hotel can discuss suitable options.
+              </p>
+              <a href="contact.html">Plan a gathering →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container">
+        <div class="events-story-grid">
+          <div class="events-story-image">
+            <img
+              src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=85"
+              alt="Participants gathered at a professional event"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="events-story">
+            <span class="eyebrow">Plan With Confidence</span>
+            <h2>Let's Discuss the Details</h2>
+            <p>
+              A successful event begins with clear communication. Let us
+              know the purpose of your gathering, the expected number of
+              guests, your preferred date, and any special requirements.
+            </p>
+            <p>
+              Our team can then respond with information about the services
+              and arrangements currently available at the hotel.
+            </p>
+
+            <div class="events-note">
+              Event spaces, guest capacity, catering, equipment, pricing,
+              and availability must be confirmed directly with the hotel.
+            </div>
+
+            <p style="margin-top:24px">
+              <a class="btn btn-navy" href="contact.html">Contact Our Team</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="events-benefits">
+          <article class="events-benefit">
+            <span class="benefit-number">01</span>
+            <h3>Share Your Plans</h3>
+            <p>
+              Tell us about the occasion, proposed date, and expected
+              number of participants.
+            </p>
+          </article>
+
+          <article class="events-benefit">
+            <span class="benefit-number">02</span>
+            <h3>Discuss Requirements</h3>
+            <p>
+              Explain your seating, catering, accessibility, and equipment
+              needs so the team can advise you.
+            </p>
+          </article>
+
+          <article class="events-benefit">
+            <span class="benefit-number">03</span>
+            <h3>Confirm Arrangements</h3>
+            <p>
+              Review the details and wait for confirmation before making
+              final plans or announcing your event.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="events-cta">
+      <span class="events-eyebrow">Start Planning</span>
+      <h2>Planning an Event in Juba?</h2>
+      <p>
+        Send us your enquiry with the proposed date, event type, and
+        expected number of guests. Our team can follow up about available
+        arrangements.
+      </p>
+      <div class="events-cta-actions">
+        <a class="btn btn-gold" href="contact.html">Enquire About an Event</a>
+        <a class="btn btn-outline" href="booking.html">Book a Stay</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand footer-brand" href="index.html" aria-label="East Afro Hotel homepage">
+            <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+            <span>
+              EAST AFRO
+              <small>HOTEL · JUBA</small>
+            </span>
+          </a>
+          <p>
+            A welcoming destination for your stay in Juba, South Sudan.
+            Contact our team about accommodation and event enquiries.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="about.html">About Us</a>
+          <a href="rooms.html">Our Rooms</a>
+          <a href="dining.html">Dining</a>
+          <a href="facilities.html">Facilities</a>
+        </div>
+
+        <div>
+          <h4>Discover</h4>
+          <a href="events.html" aria-current="page">Events & Meetings</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="booking.html">Book a Stay</a>
+        </div>
+
+        <div>
+          <h4>Location</h4>
+          <p>Juba, South Sudan</p>
+          <p>Contact the hotel to confirm event services and availability.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> East Afro Hotel. All rights reserved.</p>
+        <a href="contact.html">Contact the hotel</a>
+      </div>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >↑</button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

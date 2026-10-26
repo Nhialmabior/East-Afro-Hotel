@@ -1,0 +1,685 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact Us | East Afro Hotel, Juba</title>
+  <meta name="description" content="Contact East Afro Hotel in Juba, South Sudan, for reservation enquiries, accommodation information, dining, and events.">
+  <meta name="theme-color" content="#0b1638">
+
+  <link rel="icon" href="assets/favicon/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .contact-hero {
+      position: relative;
+      display: flex;
+      min-height: 530px;
+      align-items: center;
+      overflow: hidden;
+      padding: 70px 0;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(4,13,33,.89), rgba(6,18,39,.40)),
+        url("https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1800&q=85")
+        center 50% / cover no-repeat;
+    }
+
+    .contact-hero h1 {
+      max-width: 800px;
+      margin: 22px 0;
+      color: #fff;
+      font-size: clamp(3rem, 6.3vw, 5.4rem);
+      line-height: 1.08;
+    }
+
+    .contact-hero h1 em {
+      color: var(--lightgold);
+    }
+
+    .contact-hero p {
+      max-width: 620px;
+      color: #e4e7ea;
+      font-size: 15px;
+    }
+
+    .contact-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .contact-section {
+      padding: 90px 0;
+      background: var(--cream);
+    }
+
+    .contact-heading {
+      max-width: 760px;
+      margin: 0 auto 45px;
+      text-align: center;
+    }
+
+    .contact-heading h2 {
+      margin: 15px 0 18px;
+    }
+
+    .contact-heading p {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      align-items: start;
+      gap: 30px;
+    }
+
+    .contact-panel,
+    .contact-info-card {
+      min-width: 0;
+      padding: 30px;
+      border: 1px solid #e6e7e3;
+      background: #fff;
+      box-shadow: 0 10px 32px rgba(11,22,56,.05);
+    }
+
+    .contact-panel h3,
+    .contact-info-card h3 {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 25px;
+    }
+
+    .contact-intro {
+      margin: 0 0 28px;
+      font-size: 13px;
+    }
+
+    .contact-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .contact-field {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-field-full {
+      grid-column: 1 / -1;
+    }
+
+    .contact-field label {
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .contact-field input,
+    .contact-field select,
+    .contact-field textarea {
+      width: 100%;
+      min-height: 49px;
+      padding: 12px 13px;
+      border: 1px solid #d8dce2;
+      border-radius: 0;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .contact-field textarea {
+      min-height: 155px;
+      resize: vertical;
+    }
+
+    .contact-field input:focus-visible,
+    .contact-field select:focus-visible,
+    .contact-field textarea:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      border-color: var(--gold);
+    }
+
+    .contact-submit {
+      display: inline-flex;
+      width: 100%;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+      padding: 14px 20px;
+      border: 1px solid var(--gold);
+      border-radius: 0;
+      background: var(--gold);
+      color: var(--navy);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+
+    .contact-submit:hover {
+      background: var(--lightgold);
+    }
+
+    .contact-submit:focus-visible {
+      outline: 3px solid var(--navy);
+      outline-offset: 3px;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 22px;
+    }
+
+    .contact-info-card h3 {
+      font-size: 23px;
+    }
+
+    .contact-info-card > p {
+      font-size: 13px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 23px;
+    }
+
+    .contact-detail-icon {
+      display: grid;
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      place-items: center;
+      background: #f5edd9;
+      color: #8c6a20;
+      font-size: 18px;
+    }
+
+    .contact-detail h4 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .contact-detail p {
+      margin: 0;
+      overflow-wrap: anywhere;
+      font-size: 12px;
+    }
+
+    .contact-detail a {
+      color: #8c6a20;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .contact-detail a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-note {
+      margin-top: 22px;
+      padding: 16px;
+      border-left: 3px solid var(--gold);
+      background: #faf6eb;
+      color: #51462e;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .contact-map {
+      overflow: hidden;
+      background: #e9e9e5;
+    }
+
+    .contact-map img {
+      display: block;
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    .contact-map-caption {
+      padding: 15px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .contact-card-link {
+      display: inline-block;
+      margin-top: 15px;
+      color: #8c6a20;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .contact-card-link:hover {
+      text-decoration: underline;
+    }
+
+    .contact-bottom {
+      padding: 85px 0;
+      background:
+        linear-gradient(rgba(9,21,42,.90), rgba(9,21,42,.91)),
+        url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=85")
+        center / cover no-repeat;
+      color: #fff;
+      text-align: center;
+    }
+
+    .contact-bottom h2 {
+      max-width: 800px;
+      margin: 15px auto 20px;
+      color: #fff;
+    }
+
+    .contact-bottom h2 em {
+      color: var(--lightgold);
+    }
+
+    .contact-bottom p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: #e4e7ea;
+      font-size: 14px;
+    }
+
+    .contact-bottom-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 13px;
+      margin-top: 28px;
+    }
+
+    .contact-honeypot {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      .contact-hero {
+        min-height: 460px;
+        padding: 55px 0;
+      }
+
+      .contact-hero h1 {
+        font-size: clamp(2.7rem, 11vw, 3.8rem);
+      }
+
+      .contact-hero-actions .btn {
+        width: 100%;
+      }
+
+      .contact-section {
+        padding: 65px 0;
+      }
+
+      .contact-panel,
+      .contact-info-card {
+        padding: 22px;
+      }
+
+      .contact-fields,
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-field-full {
+        grid-column: auto;
+      }
+
+      .contact-bottom {
+        padding: 65px 0;
+      }
+
+      .contact-bottom-actions .btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-submit {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="topbar">
+    <span>East Afro Hotel · Juba, South Sudan</span>
+    <span>Comfort · Hospitality · Convenience</span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="index.html" aria-label="East Afro Hotel homepage">
+      <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+      <span>
+        EAST AFRO
+        <small>HOTEL · JUBA</small>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-controls="nav"
+      aria-expanded="false"
+    >☰</button>
+
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="dining.html">Dining</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+      <a class="btn btn-gold" href="booking.html">Book a Stay</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="contact-hero">
+      <div class="container">
+        <span class="eyebrow light">Get in Touch</span>
+        <h1>We're Here to Help Make Your Stay <em>Easier.</em></h1>
+        <p>
+          Have a question about accommodation, a reservation, dining, or an
+          event? Send us an enquiry and let us know how our team can assist.
+        </p>
+        <div class="contact-hero-actions">
+          <a class="btn btn-gold" href="#contact-form">Send an Enquiry</a>
+          <a class="btn btn-outline" href="booking.html">Request a Booking</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact-form">
+      <div class="container">
+        <div class="section-head contact-heading">
+          <span class="eyebrow">We'd Love to Hear from You</span>
+          <h2>Let's Start a Conversation</h2>
+          <p>
+            Complete the form with your question or request. Our team can
+            follow up using the contact information you provide.
+          </p>
+          <div class="gold-rule"></div>
+        </div>
+
+        <div class="contact-layout">
+          <section class="contact-panel" aria-labelledby="contactTitle">
+            <h3 id="contactTitle">Send Us a Message</h3>
+            <p class="contact-intro">
+              Fields marked with an asterisk are required.
+            </p>
+
+            <form id="contactForm">
+              <div class="contact-fields">
+                <div class="contact-field">
+                  <label for="contactName">Full name *</label>
+                  <input
+                    id="contactName"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Your full name"
+                    required
+                  >
+                </div>
+
+                <div class="contact-field">
+                  <label for="contactEmail">Email address *</label>
+                  <input
+                    id="contactEmail"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="you@example.com"
+                    required
+                  >
+                </div>
+
+                <div class="contact-field">
+                  <label for="contactPhone">Phone number</label>
+                  <input
+                    id="contactPhone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    placeholder="Include your country code"
+                  >
+                </div>
+
+                <div class="contact-field">
+                  <label for="contactSubject">Enquiry type *</label>
+                  <select id="contactSubject" name="subject" required>
+                    <option value="">Select an enquiry type</option>
+                    <option value="Reservation">Room reservation</option>
+                    <option value="Accommodation">Accommodation information</option>
+                    <option value="Dining">Dining enquiry</option>
+                    <option value="Events">Events and meetings</option>
+                    <option value="Facilities">Hotel facilities</option>
+                    <option value="Feedback">Feedback</option>
+                    <option value="Other">Other enquiry</option>
+                  </select>
+                </div>
+
+                <div class="contact-field contact-field-full">
+                  <label for="contactMessage">Your message *</label>
+                  <textarea
+                    id="contactMessage"
+                    name="message"
+                    placeholder="Tell us how we can help..."
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="contact-honeypot" aria-hidden="true">
+                <label for="contactWebsite">Leave this field empty</label>
+                <input
+                  id="contactWebsite"
+                  name="website"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                >
+              </div>
+
+              <button class="contact-submit" type="submit">
+                Send Enquiry
+              </button>
+            </form>
+          </section>
+
+          <aside class="contact-info">
+            <section class="contact-info-card">
+              <h3>Contact Information</h3>
+              <p>
+                Get in touch with East Afro Hotel for reservation enquiries
+                and information about your visit.
+              </p>
+
+              <div class="contact-detail">
+                <div class="contact-detail-icon" aria-hidden="true">⌖</div>
+                <div>
+                  <h4>Location</h4>
+                  <p>Juba, South Sudan</p>
+                  <p>Please confirm the exact address before travelling.</p>
+                </div>
+              </div>
+
+              <div class="contact-detail">
+                <div class="contact-detail-icon" aria-hidden="true">✉</div>
+                <div>
+                  <h4>Email</h4>
+                  <p>
+                    Use the contact form to send an enquiry while the hotel's
+                    official email address is being confirmed.
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-detail">
+                <div class="contact-detail-icon" aria-hidden="true">☎</div>
+                <div>
+                  <h4>Telephone</h4>
+                  <p>
+                    Contact the hotel through its verified telephone number
+                    once it has been added to this page.
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-note">
+                The hotel's full street address, official email, and
+                telephone number should be verified before publication.
+              </div>
+            </section>
+
+            <section class="contact-info-card">
+              <h3>Planning a Stay?</h3>
+              <p>
+                Explore the room options and submit a reservation request
+                with your preferred travel dates.
+              </p>
+              <a class="contact-card-link" href="rooms.html">Explore Our Rooms →</a>
+              <br>
+              <a class="contact-card-link" href="booking.html">Request a Booking →</a>
+            </section>
+
+            <section class="contact-info-card">
+              <h3>Find Us in Juba</h3>
+              <div class="contact-map">
+                <img
+                  src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1000&q=85"
+                  alt="Illustrative city buildings and streets"
+                  loading="lazy"
+                >
+                <div class="contact-map-caption">
+                  East Afro Hotel · Juba, South Sudan.
+                  The photograph is illustrative, not a verified map
+                  or photograph of the hotel's location.
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-bottom">
+      <div class="container">
+        <span class="eyebrow light">Your Visit to Juba</span>
+        <h2>We Look Forward to Hearing from <em>You.</em></h2>
+        <p>
+          Whether you're planning a visit or asking about our services,
+          get in touch so we can help with your enquiry.
+        </p>
+        <div class="contact-bottom-actions">
+          <a class="btn btn-gold" href="rooms.html">Explore Our Rooms</a>
+          <a class="btn btn-outline" href="booking.html">Request a Booking</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand footer-brand" href="index.html" aria-label="East Afro Hotel homepage">
+            <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+            <span>
+              EAST AFRO
+              <small>HOTEL · JUBA</small>
+            </span>
+          </a>
+          <p>
+            A welcoming destination for your stay in Juba, South Sudan.
+            Contact our team to plan your visit.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="about.html">About Us</a>
+          <a href="rooms.html">Our Rooms</a>
+          <a href="dining.html">Dining</a>
+          <a href="facilities.html">Facilities</a>
+        </div>
+
+        <div>
+          <h4>Discover</h4>
+          <a href="events.html">Events &amp; Meetings</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html" aria-current="page">Contact Us</a>
+          <a href="booking.html">Book a Stay</a>
+        </div>
+
+        <div>
+          <h4>Location</h4>
+          <p>Juba, South Sudan</p>
+          <p>Contact the hotel to confirm its exact address and contact details.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> East Afro Hotel. All rights reserved.</p>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >↑</button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

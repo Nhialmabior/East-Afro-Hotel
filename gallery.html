@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Photo Gallery | East Afro Hotel, Juba</title>
+  <meta name="description" content="Explore hospitality-inspired photography of guest rooms, dining, interiors, and relaxation at East Afro Hotel in Juba, South Sudan.">
+  <meta name="theme-color" content="#0b1638">
+
+  <link rel="icon" href="assets/favicon/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .gallery-hero {
+      min-height: 410px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(11,22,56,.93), rgba(11,22,56,.42)),
+        url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85")
+        center 55% / cover no-repeat;
+    }
+
+    .gallery-hero .container {
+      width: min(1140px, 90%);
+      margin: 0 auto;
+      padding: 76px 0;
+    }
+
+    .gallery-eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: #e8cc82;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .gallery-hero h1 {
+      max-width: 760px;
+      margin: 0 0 20px;
+      color: #fff;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.7rem, 6vw, 4.5rem);
+      line-height: 1.1;
+    }
+
+    .gallery-hero p {
+      max-width: 650px;
+      margin: 0;
+      color: rgba(255,255,255,.88);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .gallery-section {
+      padding: 72px 0 84px;
+    }
+
+    .gallery-intro {
+      max-width: 760px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .gallery-intro h2 {
+      margin: 10px 0 15px;
+      color: #0b1638;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .gallery-intro p {
+      color: #69717d;
+      line-height: 1.85;
+    }
+
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 30px 0 35px;
+    }
+
+    .gallery-filter {
+      padding: 10px 18px;
+      border: 1px solid #deded9;
+      border-radius: 30px;
+      background: #fff;
+      color: #26334a;
+      cursor: pointer;
+      font: inherit;
+      font-size: .9rem;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .gallery-filter:hover,
+    .gallery-filter.active {
+      border-color: #0b1638;
+      background: #0b1638;
+      color: #fff;
+    }
+
+    .gallery-filter:focus-visible,
+    .gallery-item:focus-visible,
+    .photo-modal-close:focus-visible {
+      outline: 3px solid #c9a34a;
+      outline-offset: 3px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      display: block;
+      min-width: 0;
+      aspect-ratio: 4 / 3;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 10px;
+      background: #e9e9e6;
+      cursor: pointer;
+      isolation: isolate;
+      text-align: left;
+    }
+
+    .gallery-item[hidden] {
+      display: none;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:focus-visible img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item::after {
+      position: absolute;
+      inset: 30% 0 0;
+      z-index: 1;
+      background: linear-gradient(transparent, rgba(5,12,30,.86));
+      content: "";
+      pointer-events: none;
+    }
+
+    .gallery-item-caption {
+      position: absolute;
+      right: 18px;
+      bottom: 17px;
+      left: 18px;
+      z-index: 2;
+      color: #fff;
+    }
+
+    .gallery-item-caption strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.05rem;
+    }
+
+    .gallery-item-caption span {
+      color: rgba(255,255,255,.84);
+      font-size: .82rem;
+    }
+
+    .gallery-disclaimer {
+      max-width: 900px;
+      margin: 30px auto 0;
+      padding: 18px 21px;
+      border-left: 3px solid #c9a34a;
+      border-radius: 4px;
+      background: #faf6eb;
+      color: #51462e;
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+
+    .gallery-cta {
+      padding: 72px 20px;
+      background: #0b1638;
+      color: #fff;
+      text-align: center;
+    }
+
+    .gallery-cta h2 {
+      margin: 0 0 16px;
+      color: #fff;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .gallery-cta p {
+      max-width: 660px;
+      margin: 0 auto 28px;
+      color: rgba(255,255,255,.84);
+      line-height: 1.85;
+    }
+
+    .gallery-cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* Accessible photo preview */
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(3,8,22,.95);
+    }
+
+    .photo-modal.open {
+      display: flex;
+    }
+
+    .photo-modal-content {
+      position: relative;
+      width: min(1050px, 100%);
+      text-align: center;
+    }
+
+    .photo-modal img {
+      display: block;
+      max-width: 100%;
+      max-height: 78vh;
+      margin: 0 auto;
+      border-radius: 5px;
+      object-fit: contain;
+    }
+
+    .photo-modal-caption {
+      margin-top: 15px;
+      color: #fff;
+      line-height: 1.7;
+    }
+
+    .photo-modal-close {
+      position: absolute;
+      top: -46px;
+      right: 0;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.6rem;
+    }
+
+    body.photo-modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-hero {
+        min-height: 340px;
+      }
+
+      .gallery-hero .container {
+        padding: 58px 0;
+      }
+
+      .gallery-section {
+        padding: 52px 0 60px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .gallery-item {
+        aspect-ratio: 4 / 3;
+      }
+
+      .gallery-cta {
+        padding: 56px 20px;
+      }
+
+      .photo-modal {
+        padding: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-item img,
+      .gallery-filter {
+        transition: none;
+      }
+
+      .gallery-item:hover img,
+      .gallery-item:focus-visible img {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="topbar">
+    <span>East Afro Hotel · Juba, South Sudan</span>
+    <span>Comfort · Hospitality · Convenience</span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="index.html" aria-label="East Afro Hotel homepage">
+      <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+      <span>
+        EAST AFRO
+        <small>HOTEL · JUBA</small>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-controls="nav"
+      aria-expanded="false"
+    >☰</button>
+
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="dining.html">Dining</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html" aria-current="page">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-gold" href="booking.html">Book a Stay</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="gallery-hero">
+      <div class="container">
+        <span class="gallery-eyebrow">A Visual Introduction</span>
+        <h1>Explore Our Gallery</h1>
+        <p>
+          Browse hospitality-inspired images of guest rooms, dining,
+          interiors, and spaces for relaxation. Contact our team to
+          learn more about the actual facilities available at our hotel.
+        </p>
+      </div>
+    </section>
+
+    <section class="section gallery-section">
+      <div class="container">
+        <div class="section-head gallery-intro">
+          <span class="eyebrow">Discover the Experience</span>
+          <h2>Moments of Comfort</h2>
+          <p>
+            Explore different aspects of a hotel stay using the categories
+            below. Select any image to open a larger preview.
+          </p>
+          <div class="gold-rule"></div>
+        </div>
+
+        <div class="gallery-filters" aria-label="Filter gallery photos">
+          <button class="gallery-filter active" type="button" data-filter="all" aria-pressed="true">All Photos</button>
+          <button class="gallery-filter" type="button" data-filter="rooms" aria-pressed="false">Guest Rooms</button>
+          <button class="gallery-filter" type="button" data-filter="dining" aria-pressed="false">Dining</button>
+          <button class="gallery-filter" type="button" data-filter="interiors" aria-pressed="false">Interiors</button>
+          <button class="gallery-filter" type="button" data-filter="spaces" aria-pressed="false">Spaces</button>
+        </div>
+
+        <div class="gallery-grid" id="hotelGallery">
+          <button class="gallery-item" type="button" data-category="rooms" data-title="A Comfortable Guest Room" data-description="Illustrative hospitality photography">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=85" alt="Comfortably arranged hotel bedroom" loading="lazy">
+            <span class="gallery-item-caption"><strong>A Comfortable Guest Room</strong><span>Guest Rooms</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="interiors" data-title="Hotel Setting" data-description="Illustrative hospitality photography">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=85" alt="Hotel building and landscaped surroundings" loading="lazy">
+            <span class="gallery-item-caption"><strong>Hotel Setting</strong><span>Interiors & Design</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="dining" data-title="Dining Experience" data-description="Illustrative dining photography">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=85" alt="Restaurant table arranged for dining" loading="lazy">
+            <span class="gallery-item-caption"><strong>Dining Experience</strong><span>Dining</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="rooms" data-title="Relaxing Bedroom Design" data-description="Illustrative hospitality photography">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85" alt="Bedroom with neatly arranged furnishings" loading="lazy">
+            <span class="gallery-item-caption"><strong>Relaxing Bedroom Design</strong><span>Guest Rooms</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="spaces" data-title="Welcoming Lounge" data-description="Illustrative interior photography">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85" alt="Lounge with contemporary furniture" loading="lazy">
+            <span class="gallery-item-caption"><strong>Welcoming Lounge</strong><span>Spaces</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="dining" data-title="Food and Hospitality" data-description="Illustrative food photography">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=85" alt="A selection of prepared dishes" loading="lazy">
+            <span class="gallery-item-caption"><strong>Food & Hospitality</strong><span>Dining</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="interiors" data-title="Contemporary Interior" data-description="Illustrative interior design photography">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85" alt="Bright interior with contemporary furnishings" loading="lazy">
+            <span class="gallery-item-caption"><strong>Contemporary Interior</strong><span>Interiors & Design</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="spaces" data-title="Architecture and Surroundings" data-description="Illustrative architecture photography">
+            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85" alt="Modern architecture and outdoor surroundings" loading="lazy">
+            <span class="gallery-item-caption"><strong>Architecture & Surroundings</strong><span>Spaces</span></span>
+          </button>
+
+          <button class="gallery-item" type="button" data-category="rooms" data-title="Thoughtful Room Details" data-description="Illustrative hospitality photography">
+            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85" alt="Hotel room with carefully arranged furnishings" loading="lazy">
+            <span class="gallery-item-caption"><strong>Thoughtful Room Details</strong><span>Guest Rooms</span></span>
+          </button>
+        </div>
+
+        <div class="gallery-disclaimer">
+          <strong>Image notice:</strong> These illustrative photographs are
+          sourced from Unsplash and are not verified photographs of East Afro
+          Hotel. Replace them with your own hotel photographs when available
+          so guests can see the actual rooms, facilities, food, and surroundings.
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-cta">
+      <span class="gallery-eyebrow">Plan Your Visit</span>
+      <h2>Would You Like to Know More?</h2>
+      <p>
+        Contact our team to ask about rooms, facilities, dining options,
+        and reservation availability in Juba.
+      </p>
+      <div class="gallery-cta-actions">
+        <a class="btn btn-gold" href="booking.html">Request a Reservation</a>
+        <a class="btn btn-outline" href="contact.html">Contact Us</a>
+      </div>
+    </section>
+  </main>
+
+  <div
+    class="photo-modal"
+    id="photoModal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Gallery photo preview"
+    aria-hidden="true"
+  >
+    <div class="photo-modal-content">
+      <button class="photo-modal-close" id="closePhotoModal" type="button" aria-label="Close photo preview">&times;</button>
+      <img id="modalPhoto" src="" alt="">
+      <div class="photo-modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand footer-brand" href="index.html" aria-label="East Afro Hotel homepage">
+            <img src="assets/logo.jpg" alt="East Afro Hotel logo">
+            <span>
+              EAST AFRO
+              <small>HOTEL · JUBA</small>
+            </span>
+          </a>
+          <p>
+            A welcoming destination for your stay in Juba, South Sudan.
+            Contact our team to plan your visit.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="about.html">About Us</a>
+          <a href="rooms.html">Our Rooms</a>
+          <a href="dining.html">Dining</a>
+          <a href="facilities.html">Facilities</a>
+        </div>
+
+        <div>
+          <h4>Discover</h4>
+          <a href="events.html">Events & Meetings</a>
+          <a href="gallery.html" aria-current="page">Gallery</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="booking.html">Book a Stay</a>
+        </div>
+
+        <div>
+          <h4>Location</h4>
+          <p>Juba, South Sudan</p>
+          <p>Contact the hotel for enquiries and reservation assistance.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> East Afro Hotel. All rights reserved.</p>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    (() => {
+      const filterButtons = document.querySelectorAll(".gallery-filter");
+      const galleryItems = document.querySelectorAll(".gallery-item");
+      const photoModal = document.getElementById("photoModal");
+      const modalPhoto = document.getElementById("modalPhoto");
+      const modalCaption = document.getElementById("modalCaption");
+      const closePhotoModal = document.getElementById("closePhotoModal");
+
+      if (!photoModal || !modalPhoto || !modalCaption || !closePhotoModal) {
+        return;
+      }
+
+      let lastFocusedPhoto = null;
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const category = button.dataset.filter;
+
+          filterButtons.forEach((filter) => {
+            const selected = filter === button;
+            filter.classList.toggle("active", selected);
+            filter.setAttribute("aria-pressed", String(selected));
+          });
+
+          galleryItems.forEach((item) => {
+            item.hidden =
+              category !== "all" && item.dataset.category !== category;
+          });
+        });
+      });
+
+      function openPhoto(item) {
+        const image = item.querySelector("img");
+        if (!image) return;
+
+        lastFocusedPhoto = item;
+        modalPhoto.src = image.src;
+        modalPhoto.alt = image.alt;
+        modalCaption.textContent =
+          (item.dataset.title || image.alt) +
+          " — " +
+          (item.dataset.description || "Gallery photograph");
+
+        photoModal.classList.add("open");
+        photoModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("photo-modal-open");
+        closePhotoModal.focus();
+      }
+
+      function closePhoto() {
+        photoModal.classList.remove("open");
+        photoModal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("photo-modal-open");
+        modalPhoto.src = "";
+
+        if (lastFocusedPhoto) {
+          lastFocusedPhoto.focus();
+        }
+      }
+
+      galleryItems.forEach((item) => {
+        item.addEventListener("click", () => openPhoto(item));
+      });
+
+      closePhotoModal.addEventListener("click", closePhoto);
+
+      photoModal.addEventListener("click", (event) => {
+        if (event.target === photoModal) closePhoto();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && photoModal.classList.contains("open")) {
+          closePhoto();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
