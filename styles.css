@@ -586,9 +586,9 @@ nav#nav > a.btn::after {
     inset: 0;
     background: linear-gradient(
         90deg,
-        rgba(5, 13, 35, 0.82) 0%,
-        rgba(5, 13, 35, 0.55) 48%,
-        rgba(5, 13, 35, 0.18) 100%
+        rgba(11, 22, 56, 0.88) 0%,
+        rgba(11, 22, 56, 0.62) 48%,
+        rgba(11, 22, 56, 0.12) 100%
     );
     content: "";
 }
@@ -599,8 +599,8 @@ nav#nav > a.btn::after {
     inset: 0;
     background: linear-gradient(
         180deg,
-        rgba(11, 22, 56, 0.1),
-        rgba(11, 22, 56, 0.3)
+        rgba(11, 22, 56, 0.08) 0%,
+        rgba(11, 22, 56, 0.42) 100%
     );
 }
 
@@ -1244,7 +1244,7 @@ input[type="radio"] {
     bottom: 0;
     left: 0;
     padding: 35px 18px 16px;
-    background: linear-gradient(transparent, rgba(11, 22, 56, 0.82));
+    background: linear-gradient(180deg, transparent 0%, rgba(11, 22, 56, 0.88) 100%);
     color: var(--white);
     font-weight: 700;
 }
@@ -2110,8 +2110,8 @@ td {
     .page-hero::before {
         background: linear-gradient(
             90deg,
-            rgba(5, 13, 35, 0.82),
-            rgba(5, 13, 35, 0.45)
+            rgba(11, 22, 56, 0.9) 0%,
+            rgba(11, 22, 56, 0.58) 100%
         );
     }
 
@@ -2399,7 +2399,7 @@ nav#nav > a:not(.btn)::after {
     bottom: 3px;
     height: 2px;
     border-radius: 2px;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    background: linear-gradient(90deg, var(--navy), var(--gold));
     transform-origin: center;
 }
 
@@ -2453,8 +2453,8 @@ footer {
     padding: clamp(48px, 6vw, 76px) 0 0;
     border-top: 3px solid var(--gold);
     background:
-        radial-gradient(ellipse at 12% 0%, rgba(201, 163, 74, 0.12), transparent 38%),
-        linear-gradient(135deg, #0b1638 0%, #101f43 58%, #0b1638 100%);
+        radial-gradient(ellipse at 12% 0%, rgba(201, 163, 74, 0.18), transparent 42%),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy) 62%, rgba(201, 163, 74, 0.18) 100%);
     color: rgba(255, 255, 255, 0.76);
 }
 
