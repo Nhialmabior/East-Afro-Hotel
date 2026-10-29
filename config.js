@@ -3,7 +3,7 @@
 // NEVER place a service_role or secret key here.
 window.HOTEL_CONFIG = {
   reservationsEmail: 'dilongimabior@gmail.com',
-  contactEmail: 'dilongimabior @gmail.com',
+  contactEmail: 'dilongimabior@gmail.com',
   supabaseUrl: 'https://rhyuyoozbuaikmrgxbic.supabase.co',
   supabaseAnonKey: 'sb_publishable_j5Vfz9JmxrtljrljbTNaWg_WyE_xzC3'
 };
