@@ -29,6 +29,8 @@ const client =
         cfg.supabaseAnonKey
       )
     : null;
+// Share the initialized Supabase client with billing.js.
+window.hotelSupabaseClient = client;
 
 let rooms = [];
 let blocks = [];
@@ -142,6 +144,7 @@ function emptyState(target, message, isError = false) {
    AUTHENTICATION
    ----------------------------------------------------- */
 
+
 async function load() {
   if (loading) return;
 
@@ -149,6 +152,8 @@ async function load() {
 
   try {
     if (!client) {
+      stopLoginExpiry();
+
       if (login) login.hidden = false;
       if (dashboard) dashboard.hidden = true;
 
@@ -162,6 +167,8 @@ async function load() {
     } = await client.auth.getUser();
 
     if (userError || !user) {
+      stopLoginExpiry();
+
       if (login) login.hidden = false;
       if (dashboard) dashboard.hidden = true;
 
@@ -176,6 +183,7 @@ async function load() {
       .maybeSingle();
 
     if (staffError || !staff) {
+      stopLoginExpiry();
       await client.auth.signOut();
 
       if (login) login.hidden = false;
@@ -187,6 +195,10 @@ async function load() {
 
     if (login) login.hidden = true;
     if (dashboard) dashboard.hidden = false;
+
+    // Start or refresh the 30-minute inactivity timer
+    // only after staff authorization succeeds.
+    startLoginExpiry();
 
     status('Signed in successfully.');
 
@@ -201,17 +213,25 @@ async function load() {
   }
 }
 
+
 /* -----------------------------------------------------
    DASHBOARD ENTRY POINT
    ----------------------------------------------------- */
 
+
+
 async function initializeDashboard() {
+  initializeDashboardNavigation();
+
   await Promise.all([
     render('reservation_requests', 'reservations'),
     render('contact_messages', 'messages'),
-    loadOperations()
+    loadOperations(),
+    loadBookedRooms()
   ]);
 }
+
+
 
 /* -----------------------------------------------------
    RESERVATIONS AND CONTACT MESSAGES
@@ -1154,12 +1174,39 @@ if (loginForm) {
   });
 }
 
+
 const logoutButton = document.getElementById('logout');
 
 if (logoutButton) {
   logoutButton.addEventListener('click', async () => {
-    if (client) await client.auth.signOut();
-    await load();
+    // Stop the inactivity timer.
+    stopLoginExpiry();
+
+    try {
+      if (client) {
+        const { error } = await client.auth.signOut();
+
+        if (error) {
+          console.error('Logout error:', error);
+          status('Unable to sign out. Please try again.');
+          return;
+        }
+      }
+
+      // Hide the dashboard and return to the login screen.
+      if (dashboard) dashboard.hidden = true;
+      if (login) login.hidden = false;
+
+      // Clear the password field, if present.
+      const password = document.getElementById('password');
+      if (password) password.value = '';
+
+      status('You have signed out.');
+
+    } catch (error) {
+      console.error('Logout error:', error);
+      status('An error occurred while signing out. Please try again.');
+    }
   });
 }
 
@@ -1168,6 +1215,7 @@ const refreshButton = document.getElementById('refresh');
 if (refreshButton) {
   refreshButton.addEventListener('click', load);
 }
+
 
 /* -----------------------------------------------------
    ADD ROOM
@@ -1435,6 +1483,252 @@ if (exportMessages) {
   );
 }
 
+
+
+/* -----------------------------------------------------
+   BOOKED ROOMS
+   Loads active booking allocations from Supabase.
+   Read-only: does not modify hotel data.
+   ----------------------------------------------------- */
+
+async function loadBookedRooms() {
+  const container = document.getElementById('bookedRooms');
+
+  if (!container) {
+    console.error('Booked Rooms container #bookedRooms was not found.');
+    return;
+  }
+
+  if (!client) {
+    container.innerHTML =
+      '<p class="admin-error">Supabase is not initialized.</p>';
+    return;
+  }
+
+  container.innerHTML = '<p>Loading booked rooms…</p>';
+
+  try {
+    // Find active room allocations linked to reservations.
+    const { data: blocks, error: blocksError } = await client
+      .from('room_blocks')
+      .select(
+        'id, room_id, check_in, check_out, block_type, guest_reference, reservation_request_id, released_at'
+      )
+      .eq('block_type', 'booking')
+      .is('released_at', null)
+      .not('reservation_request_id', 'is', null)
+      .order('check_in', { ascending: true });
+
+    if (blocksError) throw blocksError;
+
+    if (!blocks || blocks.length === 0) {
+      container.innerHTML =
+        '<p>No active booked rooms found.</p>';
+      return;
+    }
+
+    const roomIds = [...new Set(blocks.map(row => row.room_id).filter(Boolean))];
+    const reservationIds = [
+      ...new Set(blocks.map(row => row.reservation_request_id).filter(Boolean))
+    ];
+
+    // Fetch room details.
+    const [roomsResult, reservationsResult] = await Promise.all([
+      roomIds.length
+        ? client
+            .from('room_inventory')
+            .select('id, room_code, room_type')
+            .in('id', roomIds)
+        : Promise.resolve({ data: [], error: null }),
+
+      reservationIds.length
+        ? client
+            .from('reservation_requests')
+            .select(
+              'id, guest_name, guest_email, guest_phone, check_in, check_out, guests, status'
+            )
+            .in('id', reservationIds)
+        : Promise.resolve({ data: [], error: null })
+    ]);
+
+    if (roomsResult.error) throw roomsResult.error;
+    if (reservationsResult.error) throw reservationsResult.error;
+
+    const roomsById = new Map(
+      (roomsResult.data || []).map(room => [room.id, room])
+    );
+
+    const reservationsById = new Map(
+      (reservationsResult.data || []).map(
+        reservation => [reservation.id, reservation]
+      )
+    );
+
+    const escapeBookedText = value =>
+      String(value ?? '—').replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[character]);
+
+    const formatBookedDate = value => {
+      if (!value) return '—';
+
+      const date = new Date(`${value}`.slice(0, 10) + 'T00:00:00');
+
+      return Number.isNaN(date.getTime())
+        ? escapeBookedText(value)
+        : date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          });
+    };
+
+    const rows = blocks.map(block => {
+      const room = roomsById.get(block.room_id);
+      const reservation = reservationsById.get(
+        block.reservation_request_id
+      );
+
+      return `
+        <tr>
+          <td>${escapeBookedText(room?.room_code || 'Room unavailable')}</td>
+          <td>${escapeBookedText(room?.room_type)}</td>
+          <td>${escapeBookedText(reservation?.guest_name || block.guest_reference)}</td>
+          <td>${escapeBookedText(reservation?.guest_email)}</td>
+          <td>${escapeBookedText(reservation?.guest_phone)}</td>
+          <td>${formatBookedDate(reservation?.check_in || block.check_in)}</td>
+          <td>${formatBookedDate(reservation?.check_out || block.check_out)}</td>
+          <td>${escapeBookedText(reservation?.guests)}</td>
+          <td>${escapeBookedText(reservation?.status || 'Unavailable')}</td>
+        </tr>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="admin-table-scroll">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Room type</th>
+              <th>Guest</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Guests</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="admin-muted">
+        ${blocks.length} active room allocation${blocks.length === 1 ? '' : 's'}.
+      </p>
+    `;
+  } catch (error) {
+    console.error('Failed to load booked rooms:', error);
+
+    container.innerHTML = `
+      <p class="admin-error">
+        Could not load booked rooms.
+        Please check the browser console for details.
+      </p>
+    `;
+  }
+}
+
+
+
+/* -----------------------------------------------------
+   16. STAFF LOGIN SESSION EXPIRY
+   Automatically signs staff out after 30 minutes
+   without activity.
+   ----------------------------------------------------- */
+
+const LOGIN_IDLE_TIMEOUT_MS = 30 * 60 * 1000;
+
+let loginExpiryTimer = null;
+let loginExpiryActive = false;
+let loginExpiryListenersAdded = false;
+
+function stopLoginExpiry() {
+  loginExpiryActive = false;
+
+  if (loginExpiryTimer !== null) {
+    clearTimeout(loginExpiryTimer);
+    loginExpiryTimer = null;
+  }
+}
+
+function scheduleLoginExpiry() {
+  if (!loginExpiryActive) return;
+
+  if (loginExpiryTimer !== null) {
+    clearTimeout(loginExpiryTimer);
+  }
+
+  loginExpiryTimer = setTimeout(
+    expireLoginSession,
+    LOGIN_IDLE_TIMEOUT_MS
+  );
+}
+
+async function expireLoginSession() {
+  stopLoginExpiry();
+
+  try {
+    if (client) {
+      await client.auth.signOut();
+    }
+  } catch (error) {
+    console.error('Session expiry sign-out error:', error);
+  } finally {
+    const dashboard = document.getElementById('dashboard');
+    const login = document.getElementById('login');
+    const status = document.getElementById('status');
+    const password = document.getElementById('password');
+
+    if (dashboard) dashboard.hidden = true;
+    if (login) login.hidden = false;
+    if (password) password.value = '';
+
+    if (status) {
+      status.textContent =
+        'Your session expired after 30 minutes of inactivity. Please sign in again.';
+    }
+  }
+}
+
+function startLoginExpiry() {
+  loginExpiryActive = true;
+  scheduleLoginExpiry();
+
+  if (loginExpiryListenersAdded) return;
+  loginExpiryListenersAdded = true;
+
+  const activityEvents = [
+    'pointerdown',
+    'keydown',
+    'scroll',
+    'touchstart'
+  ];
+
+  activityEvents.forEach(eventName => {
+    document.addEventListener(eventName, () => {
+      if (loginExpiryActive) {
+        scheduleLoginExpiry();
+      }
+    }, { passive: true });
+  });
+}
+
+
 /* -----------------------------------------------------
    INITIALIZE
    ----------------------------------------------------- */
@@ -1444,3 +1738,71 @@ if (viewDate && !viewDate.value) {
 }
 
 load();
+
+/* -----------------------------------------------------
+   DASHBOARD SIDEBAR NAVIGATION
+   ----------------------------------------------------- */
+
+const dashboardSectionIds = [
+  'overview',
+  'inventory-section',
+  'calendar-section',
+  'reservations-section',
+  'walkin-section',
+  'booked-rooms-section',
+  'billing-section',
+  'messages-section'
+];
+
+function showDashboardSection(sectionId, updateHash = false) {
+  const selected = dashboardSectionIds.includes(sectionId)
+    ? sectionId
+    : 'overview';
+
+  // Show the selected section and hide the others.
+  dashboardSectionIds.forEach(id => {
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.hidden = id !== selected;
+    }
+  });
+
+  // Keep the sidebar's active state synchronized.
+  document.querySelectorAll('[data-dashboard-link]').forEach(link => {
+    const active = link.getAttribute('href') === '#' + selected;
+
+    link.classList.toggle('is-active', active);
+
+    if (active) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+
+  // Update the URL hash when a navigation link is clicked.
+  if (updateHash && window.location.hash !== '#' + selected) {
+    window.history.replaceState(null, '', '#' + selected);
+  }
+}
+
+function initializeDashboardNavigation() {
+  document.querySelectorAll('[data-dashboard-link]').forEach(link => {
+    link.addEventListener('click', event => {
+      const target = link.getAttribute('href')?.slice(1);
+
+      if (!dashboardSectionIds.includes(target)) return;
+
+      event.preventDefault();
+      showDashboardSection(target, true);
+    });
+  });
+
+  // Support direct links and browser hash changes.
+  window.addEventListener('hashchange', () => {
+    showDashboardSection(window.location.hash.slice(1));
+  });
+
+  showDashboardSection(window.location.hash.slice(1));
+}

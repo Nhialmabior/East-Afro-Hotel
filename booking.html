@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +48,7 @@
 
     .booking-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(260px, .8fr);
+      grid-template-columns: minmax(0, 1.6fr) minmax(280px, .9fr);
       gap: 30px;
       align-items: start;
     }
@@ -69,7 +68,7 @@
     }
 
     .booking-intro {
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .booking-fields {
@@ -77,7 +76,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
     }
-
+    
     .booking-field {
       display: flex;
       min-width: 0;
@@ -111,7 +110,7 @@
     }
 
     .booking-field textarea {
-      min-height: 125px;
+      min-height: 110px;
       resize: vertical;
     }
 
@@ -129,12 +128,9 @@
       margin-top: 24px;
     }
 
-    .booking-actions .btn {
-      min-height: 48px;
-    }
-
     .booking-submit {
-      width: 100%;
+      flex: 1;
+      min-width: 200px;
       min-height: 48px;
       padding: 13px 20px;
       border: 1px solid transparent;
@@ -172,7 +168,7 @@
       margin: 0 0 12px;
       color: var(--navy);
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 22px;
     }
 
     .booking-sidebar-card ul {
@@ -186,7 +182,7 @@
 
     .booking-sidebar-image {
       width: 100%;
-      height: 210px;
+      height: 190px;
       margin-bottom: 20px;
       object-fit: cover;
     }
@@ -225,13 +221,89 @@
       overflow: hidden !important;
     }
 
+    /* Live Calculator Card */
+    .pricing-card {
+      border: 2px solid var(--gold) !important;
+      background: #fff;
+    }
+
+    .pricing-tag {
+      background: #eef2f7;
+      color: #163c72;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.92rem;
+      color: #475569;
+      padding: 4px 0;
+    }
+
+    .pricing-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 6px;
+    }
+
+    .amenity-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #334155;
+    }
+
+    /* Voucher Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 22, 56, 0.78);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 99999;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .voucher-card {
+      background: #fff;
+      max-width: 580px;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     @media (max-width: 850px) {
       .booking-layout {
         grid-template-columns: 1fr;
       }
 
       .booking-sidebar {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
     }
 
@@ -270,8 +342,8 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="topbar">
-    <span>East Afro Hotel · Juba, South Sudan</span>
-    <span>Comfort · Hospitality · Convenience</span>
+    <span>East Afro Hotel · Airport Road, Juba, South Sudan</span>
+    <span>Comfort · Hospitality · 24/7 Security</span>
   </div>
 
   <header class="header">
@@ -311,7 +383,7 @@
         <h1>Your stay in Juba starts here.</h1>
         <p>
           Share your travel dates and accommodation preferences with us.
-          Our team can review your request and follow up about availability.
+          Our team provides personalized rates, airport pickups, and dedicated concierge service.
         </p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="#reservation-form">Request a Reservation</a>
@@ -320,43 +392,64 @@
       </div>
     </section>
 
+    <!-- Hospitality Badges Banner -->
+    <div style="background: #06122b; color: #cbd5e1; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; padding: 14px 0;">
+      <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; font-size: 0.85rem;">
+        <span style="display: flex; align-items: center; gap: 8px;">⚡ <strong>24/7 Uninterrupted Power</strong> (Dual Generators)</span>
+        <span style="display: flex; align-items: center; gap: 8px;">🛡️ <strong>Diplomatic Perimeter Security</strong></span>
+        <span style="display: flex; align-items: center; gap: 8px;">🚐 <strong>Free Juba Airport (JUB) Shuttle</strong></span>
+        <span style="display: flex; align-items: center; gap: 8px;">📶 <strong>Dedicated High-Speed Wi-Fi</strong></span>
+      </div>
+    </div>
+
     <section class="section section-soft">
       <div class="container booking-layout">
+        <!-- Main Form Panel -->
         <section class="booking-panel" id="reservation-form" aria-labelledby="bookingTitle">
-          <span class="eyebrow">Plan Your Visit</span>
-          <h2 id="bookingTitle">Request a reservation</h2>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
+            <div>
+              <span class="eyebrow">Plan Your Visit</span>
+              <h2 id="bookingTitle" style="margin-bottom: 6px;">Request a reservation</h2>
+            </div>
+            <!-- Demo Quick-Fill Button for Presentations -->
+            <button 
+              type="button" 
+              id="demoAutoFillBtn"
+              title="Click to automatically fill with realistic demo guest details"
+              style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 12px; font-size: 0.82rem; color: #1e293b; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+              ⚡ <strong>Demo Quick-Fill</strong>
+            </button>
+          </div>
+
           <p class="booking-intro">
-            Enter your preferred dates and contact information. Sending
-            this form submits a request and does not automatically confirm
-            a reservation.
+            Enter your preferred dates and guest details. Your live stay estimate updates automatically in the sidebar.
           </p>
 
           <form id="bookingForm">
             <div class="booking-fields">
               <div class="booking-field">
                 <label for="bookingName">Full name *</label>
-                <input id="bookingName" name="name" type="text" autocomplete="name" placeholder="Enter your full name" required>
+                <input id="bookingName" name="name" type="text" autocomplete="name" placeholder="e.g. Hon. Daniel Majok" required>
               </div>
 
               <div class="booking-field">
                 <label for="bookingEmail">Email address *</label>
-                <input id="bookingEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                <input id="bookingEmail" name="email" type="email" autocomplete="email" placeholder="you@organization.org" required>
               </div>
 
               <div class="booking-field">
-                <label for="bookingPhone">Phone number *</label>
-                <input id="bookingPhone" name="phone" type="tel" autocomplete="tel" placeholder="Include your country code" required>
+                <label for="bookingPhone">Phone number (WhatsApp preferred) *</label>
+                <input id="bookingPhone" name="phone" type="tel" autocomplete="tel" placeholder="+211 920 000 000" required>
               </div>
 
               <div class="booking-field">
-                <label for="roomSelect">Preferred room *</label>
+                <label for="roomSelect">Preferred Room Category *</label>
                 <select id="roomSelect" name="room" required>
-                  <option value="">Select a room</option>
-                  <option value="Standard Room">Standard Room</option>
-                  <option value="Deluxe Room">Deluxe Room</option>
-                  <option value="Executive Room">Executive Room</option>
-                  <option value="Suite">Suite</option>
-                  <option value="Any Available Room">Any available room</option>
+                  <option value="Standard Room">Standard Room — $120 / night</option>
+                  <option value="Deluxe Room">Deluxe Room — $150 / night</option>
+                  <option value="Executive Room" selected>Executive Room — $180 / night</option>
+                  <option value="Suite">Diplomatic Suite — $250 / night</option>
+                  <option value="Presidential Suite">Presidential Suite — $350 / night</option>
                 </select>
               </div>
 
@@ -377,28 +470,43 @@
                   <option value="2" selected>2 guests</option>
                   <option value="3">3 guests</option>
                   <option value="4">4 guests</option>
-                  <option value="5">5 guests</option>
-                  <option value="6">6 guests</option>
-                  <option value="7">7 guests</option>
-                  <option value="8">8 guests</option>
+                  <option value="5">5+ guests (Group / Delegation)</option>
                 </select>
               </div>
 
               <div class="booking-field">
                 <label for="bookingPurpose">Purpose of visit</label>
                 <select id="bookingPurpose" name="purpose">
-                  <option value="">Select if applicable</option>
-                  <option value="Business">Business</option>
-                  <option value="Leisure">Leisure</option>
-                  <option value="Family visit">Family visit</option>
-                  <option value="Event">Event</option>
+                  <option value="Business / NGO / UN">Business / NGO / UN Mission</option>
+                  <option value="Government / Delegation">Government / Diplomatic Delegation</option>
+                  <option value="Leisure & Tourism">Leisure & Tourism</option>
+                  <option value="Conference / Event">Conference / Event</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
 
+              <!-- Airport Shuttle Checkbox & Expandable Flight Details -->
+              <div class="booking-field booking-field-full" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 4px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; text-transform: none; font-size: 14px; margin: 0;">
+                  <input type="checkbox" id="airportShuttle" name="airport_shuttle" checked style="width: 18px; height: 18px; accent-color: #0b1638;">
+                  <span><strong>Complimentary Airport Transfer:</strong> Pickup from Juba International Airport (JUB)</span>
+                </label>
+
+                <div id="flightDetailsBox" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #cbd5e1;">
+                  <div>
+                    <label for="flightNumber" style="font-size: 11px; text-transform: uppercase;">Flight Number</label>
+                    <input id="flightNumber" name="flight_number" type="text" placeholder="e.g. KQ 350 / ET 354" style="min-height: 38px; padding: 8px;">
+                  </div>
+                  <div>
+                    <label for="arrivalTime" style="font-size: 11px; text-transform: uppercase;">Estimated Arrival Time</label>
+                    <input id="arrivalTime" name="arrival_time" type="time" value="14:30" style="min-height: 38px; padding: 8px;">
+                  </div>
+                </div>
+              </div>
+
               <div class="booking-field booking-field-full">
-                <label for="bookingRequests">Special requests</label>
-                <textarea id="bookingRequests" name="special_requests" placeholder="Share any preferences or additional information."></textarea>
+                <label for="bookingRequests">Special requests / Security notes</label>
+                <textarea id="bookingRequests" name="special_requests" placeholder="Dietary needs, twin beds, security convoy parking, or early check-in requirements..."></textarea>
               </div>
             </div>
 
@@ -407,76 +515,172 @@
               <input id="bookingWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
 
-            <p id="staySummary" class="booking-note" aria-live="polite">
-              Select your check-in and check-out dates to review your stay.
-            </p>
-
             <div class="booking-actions">
-              <button id="checkAvailability" class="booking-submit" type="button">
-                Check Stay Details
-              </button>
-              <button class="booking-submit" type="submit">
-                Submit Reservation Request
+              <button class="booking-submit" type="submit" id="submitBtn">
+                Confirm & Submit Request
               </button>
             </div>
 
             <div id="availabilityResult" class="booking-status" role="status" aria-live="polite"></div>
 
             <p class="fine booking-privacy">
-              Room availability, rates, and arrangements require confirmation
-              from the hotel. Do not enter payment card details or passwords.
+              <strong>Transparent Policy:</strong> No deposit or credit card required online. Official confirmation and payment arrangements are handled directly upon check-in or via corporate invoice.
             </p>
           </form>
         </section>
 
+        <!-- Sidebar -->
         <aside class="booking-sidebar">
+          <!-- Live Price Calculator Card -->
+          <section class="booking-sidebar-card pricing-card" id="pricingSummaryCard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="eyebrow" style="margin: 0; color: #0b1638;">Stay Estimate</span>
+              <span class="pricing-tag">LIVE QUOTE</span>
+            </div>
+
+            <h3 id="calcRoomTitle" style="margin-bottom: 14px; font-size: 20px;">Executive Room</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="pricing-row">
+                <span>Duration:</span>
+                <strong id="calcNightsText" style="color: #0b1638;">3 Nights</strong>
+              </div>
+              <div class="pricing-row">
+                <span>Rate per Night:</span>
+                <strong id="calcRateText" style="color: #0b1638;">$180.00</strong>
+              </div>
+              <div class="pricing-row">
+                <span>Subtotal:</span>
+                <span id="calcSubtotalText">$540.00</span>
+              </div>
+              <div class="pricing-row">
+                <span>Hospitality Fee (10%):</span>
+                <span id="calcTaxText">$54.00</span>
+              </div>
+              <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 6px 0;">
+              <div class="pricing-total-row">
+                <span style="font-weight: 700; color: #0b1638;">Estimated Total:</span>
+                <strong id="calcTotalText" style="font-size: 1.45rem; color: #d5a83d;">$594.00</strong>
+              </div>
+              <div style="text-align: right; font-size: 0.8rem; color: #94a3b8;">
+                Approx. <span id="calcSspText">SSP 891,000</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 4px; font-size: 0.82rem; color: #475569; line-height: 1.5;">
+              ✓ English & Continental breakfast included<br>
+              ✓ Complimentary airport shuttle (JUB)<br>
+              ✓ Daily laundry credit for Executive & Suites
+            </div>
+          </section>
+
+          <!-- Instructions Card -->
           <section class="booking-sidebar-card">
             <img
               class="booking-sidebar-image"
               src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=85"
-              alt="Comfortable hotel bedroom, illustrative image"
+              alt="Comfortable hotel bedroom in Juba"
               loading="lazy"
             >
-            <span class="eyebrow">Your Visit</span>
+            <span class="eyebrow">Reservation Process</span>
             <h3>How it works</h3>
             <ul>
-              <li>Enter your preferred dates.</li>
-              <li>Select a room and number of guests.</li>
-              <li>Submit your reservation request.</li>
-              <li>Wait for the hotel to respond about availability.</li>
+              <li>Submit your dates & airport schedule.</li>
+              <li>Receive instant booking reference voucher.</li>
+              <li>Front desk locks your room & dispatch driver.</li>
+              <li>Settle payment upon arrival via Cash or Card.</li>
             </ul>
           </section>
 
-          <section class="booking-sidebar-card">
-            <span class="eyebrow">Helpful Information</span>
-            <h3>Before you book</h3>
-            <p>
-              Please confirm room availability, rates, check-in arrangements,
-              and any special requests directly with the hotel.
+          <!-- Direct Front Desk Help -->
+          <section class="booking-sidebar-card" style="border-left: 3px solid #163c72;">
+            <span class="eyebrow">Direct Assistance</span>
+            <h3>VIP & Group Bookings</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 15px;">
+              For long-term contracts, embassy delegates, or corporate conference packages, speak directly with our General Manager.
             </p>
-            <div class="booking-note">
-              Your request is not a confirmed reservation until the hotel
-              communicates confirmation.
-            </div>
-            <p><a class="text-link" href="rooms.html">Explore our rooms <span>→</span></a></p>
-            <p><a class="text-link" href="contact.html">Contact the hotel <span>→</span></a></p>
+            <p style="margin: 0;"><strong>Front Desk:</strong> +211 922 000 111</p>
+            <p style="margin: 4px 0 12px;"><strong>Email:</strong> reservations@eastafrohotel.com</p>
+            <p><a class="text-link" href="contact.html">Send an enquiry message <span>→</span></a></p>
           </section>
         </aside>
       </div>
     </section>
 
+    <!-- Callout Section -->
     <section class="section section-navy center">
       <div class="container">
         <span class="eyebrow light">Need Assistance?</span>
-        <h2>We're here to help with <em>your enquiry.</em></h2>
+        <h2>We're here to help with <em>your stay.</em></h2>
         <p>
-          Contact the hotel if you have questions about your intended stay
-          or need to discuss a reservation request.
+          Contact the hotel team directly if you have specific security, conference, or transport requirements.
         </p>
-        <a class="btn btn-gold" href="contact.html">Contact Us</a>
+        <a class="btn btn-gold" href="contact.html">Contact Front Desk</a>
       </div>
     </section>
   </main>
+
+  <!-- Reservation Confirmation Voucher Modal -->
+  <div id="voucherModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="voucherModalTitle">
+    <div class="voucher-card">
+      <div style="background: #0b1638; color: white; padding: 22px 28px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="color: #d5a83d; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">East Afro Hotel · Juba</span>
+          <h2 id="voucherModalTitle" style="margin: 2px 0 0; color: white; font-family: 'Playfair Display', serif; font-size: 1.45rem;">Reservation Request Voucher</h2>
+        </div>
+        <button type="button" id="closeVoucherBtn" style="background: none; border: none; color: #94a3b8; font-size: 1.6rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <div style="padding: 24px 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #fef9c3; border: 1px solid #fde047; padding: 10px 14px; border-radius: 6px; margin-bottom: 20px;">
+          <div>
+            <div style="font-size: 0.75rem; color: #854d0e; text-transform: uppercase; font-weight: 700;">Status</div>
+            <div style="color: #713f12; font-weight: 700;">⏳ Received · Awaiting Front Desk Confirmation</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.75rem; color: #854d0e; text-transform: uppercase; font-weight: 700;">Booking Reference</div>
+            <div id="voucherRef" style="font-size: 1.15rem; font-weight: 800; color: #0b1638; font-family: monospace;">EAH-2026-0842</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 0.9rem; margin-bottom: 20px;">
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Guest Name</span>
+            <div id="voucherGuestName" style="font-weight: 700; color: #0b1638;">Hon. Daniel Majok</div>
+          </div>
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Room Category</span>
+            <div id="voucherRoomType" style="font-weight: 700; color: #0b1638;">Executive Room</div>
+          </div>
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Check-in Date</span>
+            <div id="voucherCheckin" style="font-weight: 600;">Tomorrow</div>
+          </div>
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Check-out Date</span>
+            <div id="voucherCheckout" style="font-weight: 600;">3 Nights Later</div>
+          </div>
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Airport Transfer</span>
+            <div id="voucherShuttle" style="font-weight: 600; color: #16a34a;">Requested (Free)</div>
+          </div>
+          <div>
+            <span style="color: #64748b; font-size: 0.78rem; text-transform: uppercase;">Estimated Total (USD)</span>
+            <div id="voucherTotal" style="font-weight: 800; color: #d5a83d; font-size: 1.1rem;">$594.00</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px;">
+          <a id="voucherWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: white; text-decoration: none; padding: 12px; border-radius: 6px; text-align: center; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>💬 Confirm via WhatsApp Front Desk</span>
+          </a>
+          <button type="button" onclick="window.print()" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; font-weight: 600; color: #1e293b; cursor: pointer;">
+            🖨️ Print / Save Voucher
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="container">
@@ -510,20 +714,174 @@
 
         <div>
           <h4>LOCATION</h4>
-          <p>Juba, South Sudan</p>
-          <p>Contact our team for booking enquiries and further information.</p>
+          <p>Airport Road, Hai Malakal, Juba, South Sudan</p>
+          <p>Tel: +211 922 000 111 / +211 912 000 222</p>
           <a class="text-link" href="contact.html">Get in touch <span>→</span></a>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <span>© <span id="year"></span> East Afro Hotel. All rights reserved.</span>
+        <span>© <span id="year">2026</span> East Afro Hotel. All rights reserved.</span>
         <span>Comfort · Hospitality · Convenience</span>
       </div>
     </div>
   </footer>
 
   <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+  <!-- Floating WhatsApp Support Button -->
+  <a 
+    href="https://wa.me/211920000000?text=Hello%20East%20Afro%20Hotel,%20I%20would%20like%20to%20inquire%20about%20room%20availability" 
+    class="whatsapp-float" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    aria-label="Chat with East Afro Hotel on WhatsApp"
+  >
+    <svg viewBox="0 0 24 24">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.961.884 2.801.885h.005c3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.767-5.778-5.772zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.044-2.12-.544-1.821-.75-2.996-2.597-3.087-2.718-.09-.121-.735-.979-.735-1.867 0-.888.469-1.325.635-1.505.166-.18.363-.225.484-.225.12 0 .241.002.346.007.111.005.259-.042.404.308.148.36.505 1.233.549 1.323.044.09.074.195.015.315-.059.12-.09.195-.18.3-.09.105-.19.234-.271.315-.091.09-.186.189-.08.372.105.182.469.774 1.006 1.253.692.617 1.276.808 1.457.898.181.09.286.075.392-.045.105-.12.451-.525.571-.705.12-.18.241-.15.405-.09.166.06 1.055.498 1.235.588.181.09.301.135.346.21.045.076.045.436-.099.841z"/>
+    </svg>
+    <span>Chat with Us</span>
+  </a>
+
+  <!-- Self-contained Booking Calculator, Demo Auto-Fill & Voucher Modal Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Rates table
+      const ROOM_PRICES = {
+        'Standard Room': 120,
+        'Deluxe Room': 150,
+        'Executive Room': 180,
+        'Suite': 250,
+        'Presidential Suite': 350
+      };
+
+      const checkinEl = document.getElementById('checkin');
+      const checkoutEl = document.getElementById('checkout');
+      const roomEl = document.getElementById('roomSelect');
+      const shuttleCheckbox = document.getElementById('airportShuttle');
+      const flightBox = document.getElementById('flightDetailsBox');
+
+      // Initialize default dates: tomorrow to +3 days
+      const today = new Date();
+      const defaultIn = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+      const defaultOut = new Date(today.getTime() + (4 * 24 * 60 * 60 * 1000));
+      
+      const toIsoDate = d => d.toISOString().split('T')[0];
+      if (checkinEl && !checkinEl.value) checkinEl.value = toIsoDate(defaultIn);
+      if (checkoutEl && !checkoutEl.value) checkoutEl.value = toIsoDate(defaultOut);
+
+      // Airport shuttle box toggle
+      if (shuttleCheckbox && flightBox) {
+        shuttleCheckbox.addEventListener('change', () => {
+          flightBox.style.display = shuttleCheckbox.checked ? 'grid' : 'none';
+        });
+      }
+
+      // Calculation logic
+      function calculateLiveTotal() {
+        if (!checkinEl || !checkoutEl || !roomEl) return { total: 0, nights: 1 };
+
+        const dIn = new Date(checkinEl.value);
+        const dOut = new Date(checkoutEl.value);
+
+        let nights = 1;
+        if (dIn && dOut && dOut > dIn) {
+          const diff = Math.abs(dOut - dIn);
+          nights = Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+        }
+
+        const selectedRoom = roomEl.value || 'Executive Room';
+        const rate = ROOM_PRICES[selectedRoom] || 180;
+        const subtotal = rate * nights;
+        const tax = subtotal * 0.10;
+        const grandTotal = subtotal + tax;
+        const sspTotal = (grandTotal * 1500).toLocaleString();
+
+        // Update card
+        const titleEl = document.getElementById('calcRoomTitle');
+        const nightsEl = document.getElementById('calcNightsText');
+        const rateEl = document.getElementById('calcRateText');
+        const subtotalEl = document.getElementById('calcSubtotalText');
+        const taxEl = document.getElementById('calcTaxText');
+        const totalEl = document.getElementById('calcTotalText');
+        const sspEl = document.getElementById('calcSspText');
+
+        if (titleEl) titleEl.textContent = selectedRoom;
+        if (nightsEl) nightsEl.textContent = `${nights} Night${nights > 1 ? 's' : ''}`;
+        if (rateEl) rateEl.textContent = `$${rate.toFixed(2)}`;
+        if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (taxEl) taxEl.textContent = `$${tax.toFixed(2)}`;
+        if (totalEl) totalEl.textContent = `$${grandTotal.toFixed(2)}`;
+        if (sspEl) sspEl.textContent = `SSP ${sspTotal}`;
+
+        return { total: grandTotal, nights, rate, selectedRoom };
+      }
+
+      checkinEl.addEventListener('change', calculateLiveTotal);
+      checkoutEl.addEventListener('change', calculateLiveTotal);
+      roomEl.addEventListener('change', calculateLiveTotal);
+      calculateLiveTotal();
+
+      // Demo Auto-fill handler
+      const demoBtn = document.getElementById('demoAutoFillBtn');
+      if (demoBtn) {
+        demoBtn.addEventListener('click', () => {
+          document.getElementById('bookingName').value = 'Hon. Daniel Majok';
+          document.getElementById('bookingEmail').value = 'd.majok@un-envoy.org';
+          document.getElementById('bookingPhone').value = '+211 920 445 789';
+          document.getElementById('roomSelect').value = 'Executive Room';
+          document.getElementById('guestCount').value = '2';
+          document.getElementById('bookingPurpose').value = 'Government / Delegation';
+          document.getElementById('flightNumber').value = 'KQ 350';
+          document.getElementById('arrivalTime').value = '14:30';
+          document.getElementById('bookingRequests').value = 'VIP Airport transport requested. Security escort accompanying. Late arrival checkout requested.';
+          calculateLiveTotal();
+        });
+      }
+
+      // Voucher modal display on form submit
+      const form = document.getElementById('bookingForm');
+      const modal = document.getElementById('voucherModal');
+      const closeBtn = document.getElementById('closeVoucherBtn');
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.remove('active');
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const { total, nights, selectedRoom } = calculateLiveTotal();
+          const guestName = document.getElementById('bookingName').value || 'Valued Guest';
+          const randomRef = 'EAH-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+
+          document.getElementById('voucherRef').textContent = randomRef;
+          document.getElementById('voucherGuestName').textContent = guestName;
+          document.getElementById('voucherRoomType').textContent = selectedRoom;
+          document.getElementById('voucherCheckin').textContent = checkinEl.value;
+          document.getElementById('voucherCheckout').textContent = `${checkoutEl.value} (${nights} nights)`;
+          document.getElementById('voucherTotal').textContent = `$${total.toFixed(2)}`;
+          document.getElementById('voucherShuttle').textContent = shuttleCheckbox.checked ? 'Requested (Flight ' + (document.getElementById('flightNumber').value || 'TBD') + ')' : 'Not needed';
+
+          // Configure WhatsApp Direct confirmation link
+          const waMessage = encodeURIComponent(
+            `Hello East Afro Hotel! I have submitted a reservation request.\n` +
+            `Ref: ${randomRef}\n` +
+            `Guest: ${guestName}\n` +
+            `Room: ${selectedRoom}\n` +
+            `Dates: ${checkinEl.value} to ${checkoutEl.value} (${nights} nights)\n` +
+            `Estimated Total: $${total.toFixed(2)}\n` +
+            `Please confirm availability.`
+          );
+          document.getElementById('voucherWhatsAppBtn').href = `https://wa.me/211920000000?text=${waMessage}`;
+
+          modal.classList.add('active');
+        });
+      }
+    });
+  </script>
 
   <script src="config.js"></script>
   <script src="script.js"></script>
