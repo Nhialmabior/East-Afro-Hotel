@@ -300,11 +300,17 @@ if (bookingForm) {
         payload
       );
 
-      if (saved) {
+            if (saved) {
         notice(
           'Request received',
           'Your reservation request was received. This is NOT a confirmed booking. Hotel staff must confirm availability and rates.'
         );
+
+                const successBanner = document.getElementById('contactSuccess');
+        if (successBanner) {
+          successBanner.hidden = false;
+          successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }      
 
         form.reset();
         updateCheckoutMinimum();
@@ -526,32 +532,63 @@ if (availabilityButton) {
         return;
       }
 
-      availabilityResult.replaceChildren();
+            availabilityResult.replaceChildren();
+
+      const grid = document.createElement('div');
+      grid.className = 'availability-cards';
 
       rows.forEach((row) => {
-        const line = document.createElement('p');
+        const total = Number(row.total_rooms) || 0;
+        const available = Number(row.available_rooms) || 0;
+        const rate = row.nightly_rate_from_usd;
 
-        const rateText =
-          row.nightly_rate_from_usd == null
-            ? ''
-            : ` · indicative rates from $${Number(
-                row.nightly_rate_from_usd
-              ).toFixed(2)}/night`;
+        const level =
+          available === 0
+            ? 'none'
+            : available <= Math.max(1, total / 3)
+              ? 'low'
+              : 'good';
 
-        line.textContent =
-          `${row.room_type}: ${row.available_rooms} of ` +
-          `${row.total_rooms} rooms potentially available` +
-          rateText;
+        const levelLabel =
+          level === 'none'
+            ? 'Fully booked'
+            : level === 'low'
+              ? 'Limited rooms'
+              : 'Available';
 
-        availabilityResult.appendChild(line);
+        const card = document.createElement('div');
+        card.className = `availability-card is-${level}`;
+
+        const title = document.createElement('strong');
+        title.textContent = row.room_type;
+        card.append(title);
+
+        const levelTag = document.createElement('span');
+        levelTag.className = 'availability-card-level';
+        levelTag.textContent = levelLabel;
+        card.append(levelTag);
+
+        const detail = document.createElement('p');
+        detail.textContent = `${available} of ${total} rooms open for your dates`;
+        card.append(detail);
+
+        if (rate != null) {
+          const rateLine = document.createElement('p');
+          rateLine.className = 'availability-card-rate';
+          rateLine.textContent = `From US$${Number(rate).toFixed(0)} per night`;
+          card.append(rateLine);
+        }
+
+        grid.append(card);
       });
 
+      availabilityResult.append(grid);
+
       const note = document.createElement('small');
-
       note.textContent =
-        'Indicative only. Availability can change before hotel staff confirm your booking.';
+        'Indicative only — final availability and rates are confirmed by hotel staff after your enquiry.';
+      availabilityResult.append(note);
 
-      availabilityResult.appendChild(note);
     } catch (error) {
       console.error(
         'Availability check failed:',

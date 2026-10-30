@@ -424,7 +424,13 @@
           <p class="booking-intro">
             Enter your preferred dates and guest details. Your live stay estimate updates automatically in the sidebar.
           </p>
-
+                      <div id="bookingSuccess" class="form-success-banner" hidden role="status">
+              <strong>Thank you — your enquiry was sent.</strong>
+              <p>
+                We will confirm availability and rates by email or phone.
+                No payment was taken.
+              </p>
+            </div>
           <form id="bookingForm">
             <div class="booking-fields">
               <div class="booking-field">
@@ -436,7 +442,7 @@
                 <label for="bookingEmail">Email address *</label>
                 <input id="bookingEmail" name="email" type="email" autocomplete="email" placeholder="you@organization.org" required>
               </div>
-
+                <small class="field-hint">We reply to this address — please check the spelling.</small> 
               <div class="booking-field">
                 <label for="bookingPhone">Phone number (WhatsApp preferred) *</label>
                 <input id="bookingPhone" name="phone" type="tel" autocomplete="tel" placeholder="+211 920 000 000" required>
@@ -582,6 +588,15 @@
               alt="Comfortable hotel bedroom in Juba"
               loading="lazy"
             >
+                        <div class="form-expectation">
+              <strong>How booking works here</strong>
+              <p>
+                This form sends a reservation <em>enquiry</em>. Our team checks
+                availability and confirms your rate by email or phone — you are
+                not charged now and your dates are held once staff confirm.
+              </p>
+            </div>
+
             <span class="eyebrow">Reservation Process</span>
             <h3>How it works</h3>
             <ul>
@@ -591,7 +606,7 @@
               <li>Settle payment upon arrival via Cash or Card.</li>
             </ul>
           </section>
-
+          
           <!-- Direct Front Desk Help -->
           <section class="booking-sidebar-card" style="border-left: 3px solid #163c72;">
             <span class="eyebrow">Direct Assistance</span>
@@ -882,7 +897,7 @@
       }
     });
   </script>
-
+  <a class="mobile-call" href="tel:+211900000000">Call the hotel</a>
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>

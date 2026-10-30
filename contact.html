@@ -453,7 +453,10 @@
             <p class="contact-intro">
               Fields marked with an asterisk are required.
             </p>
-
+            <div id="contactSuccess" class="form-success-banner" hidden role="status">
+              <strong>Message received.</strong>
+              <p>Our front desk has your enquiry and will reply by email or phone.</p>
+            </div>
             <form id="contactForm">
               <div class="contact-fields">
                 <div class="contact-field">
@@ -479,6 +482,7 @@
                     required
                   >
                 </div>
+                  <small class="field-hint">We reply to this address — please check the spelling.</small>
 
                 <div class="contact-field">
                   <label for="contactPhone">Phone number</label>
@@ -526,7 +530,13 @@
                   autocomplete="off"
                 >
               </div>
-
+                          <div class="form-expectation">
+              <strong>How we reply</strong>
+              <p>
+                Messages go straight to our front desk. We usually respond
+                within one business day. For anything urgent, please call us.
+              </p>
+            </div>
               <button class="contact-submit" type="submit">
                 Send Enquiry
               </button>
@@ -678,7 +688,7 @@
     type="button"
     aria-label="Back to top"
   >↑</button>
-
+  <a class="mobile-call" href="tel:+211900000000">Call the hotel</a>
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>

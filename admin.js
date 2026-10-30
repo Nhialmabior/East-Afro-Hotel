@@ -229,6 +229,7 @@ async function initializeDashboard() {
     loadOperations(),
     loadBookedRooms()
   ]);
+    refreshSidebarBadges();
 }
 
 
@@ -471,11 +472,16 @@ async function render(table, targetId) {
       statusSelect.append(option);
     }
 
-    statusSelect.value = item.status || 'new';
+        statusSelect.value = item.status || 'new';
     statusSelect.disabled = item.status === 'confirmed';
 
     statusLabel.append(statusSelect);
     statusSection.append(statusLabel);
+
+    const statusPill = setClass(el('span'), 'status-pill');
+    statusPill.dataset.status = (item.status || 'new').toLowerCase();
+    statusSection.append(statusPill);
+
     card.append(statusSection);
 
     statusSelect.addEventListener('change', async () => {
@@ -500,6 +506,8 @@ async function render(table, targetId) {
 
       status('Status updated.');
       await render(table, targetId);
+            status('Status updated.');
+      refreshSidebarBadges();
     });
 
     /* Reservation actions and private notes */
@@ -1805,4 +1813,26 @@ function initializeDashboardNavigation() {
   });
 
   showDashboardSection(window.location.hash.slice(1));
+}
+/* ===== Sidebar pending-work badges ===== */
+
+async function refreshSidebarBadges() {
+  const badges = [
+    ['newReservationsBadge', 'reservation_requests'],
+    ['newMessagesBadge', 'contact_messages']
+  ];
+
+  for (const [badgeId, table] of badges) {
+    const badge = document.getElementById(badgeId);
+
+    if (!badge) continue;
+
+    const { count, error } = await client
+      .from(table)
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'new');
+
+    badge.hidden = Boolean(error) || !count;
+    badge.textContent = error || !count ? '' : String(count);
+  }
 }

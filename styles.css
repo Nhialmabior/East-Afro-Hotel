@@ -1091,3 +1091,239 @@ dialog h3 {
   height: 22px;
   fill: currentColor;
 }
+/* ===== Availability result cards ===== */
+.availability-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.availability-card {
+  background: #fff;
+  border: 1px solid #e3e0d8;
+  border-top: 3px solid var(--gold);
+  padding: 14px 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.availability-card.is-low  { border-top-color: #e67e22; }
+.availability-card.is-none { border-top-color: #c0392b; }
+
+.availability-card strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.availability-card p {
+  margin: 0;
+  font-size: .9rem;
+  color: #444c5c;
+}
+
+.availability-card-rate {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.availability-card-level {
+  justify-self: start;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eef3f9;
+  color: #35507c;
+}
+
+/* ===== Availability result cards ===== */
+.availability-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.availability-card {
+  background: #fff;
+  border: 1px solid #e3e0d8;
+  border-top: 3px solid var(--gold);
+  padding: 14px 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.availability-card.is-low  { border-top-color: #e67e22; }
+.availability-card.is-none { border-top-color: #c0392b; }
+
+.availability-card strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.availability-card p {
+  margin: 0;
+  font-size: .9rem;
+  color: #444c5c;
+}
+
+.availability-card-rate {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.availability-card-level {
+  justify-self: start;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eef3f9;
+  color: #35507c;
+}
+
+.availability-card.is-low  .availability-card-level { background: #fef5e7; color: #b9770e; }
+.availability-card.is-none .availability-card-level { background: #fdecea; color: #a93226; }
+
+/* ===== Form expectation / success banners ===== */
+.form-expectation {
+  border-left: 3px solid var(--gold);
+  background: #faf7ef;
+  padding: 12px 16px;
+  font-size: .92rem;
+  margin-top: 18px;
+}
+
+.form-expectation strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.form-expectation p {
+  margin: 0;
+  color: #444c5c;
+}
+
+.form-success-banner {
+  border: 1px solid #cfe3d4;
+  border-left: 4px solid #2e8b57;
+  background: #f2faf5;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+}
+
+.form-success-banner strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.form-success-banner p {
+  margin: 0;
+  color: #444c5c;
+  font-size: .95rem;
+}
+/* ===== Field validation feedback ===== */
+.booking-fields input:user-invalid,
+.booking-fields textarea:user-invalid,
+.contact-form input:user-invalid,
+.contact-form textarea:user-invalid {
+  border-color: #c0392b;
+  background: #fdf3f2;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: .78rem;
+  color: #727985;
+}
+/* ===== Mobile call button ===== */
+.mobile-call {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(7, 18, 43, .35);
+}
+
+.mobile-call:hover { background: #14295c; }
+
+@media (max-width: 850px) {
+  .mobile-call { display: inline-flex; }
+  body { padding-bottom: 84px; }
+}
+.admin-nav-badge {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--admin-gold, #d4ad51);
+  color: #101e43;
+  font-size: .72rem;
+  font-weight: 700;
+  text-align: center;
+}
+.status-pill {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: #e8ecf4;
+  color: #35507c;
+}
+
+.status-pill[data-status="new"],
+.status-pill[data-status="in_house"] {
+  background: #fdf3d7;
+  color: #8a6d1a;
+}
+
+.status-pill[data-status="contacted"] {
+  background: #e3edfb;
+  color: #1f5aa8;
+}
+
+.status-pill[data-status="confirmed"],
+.status-pill[data-status="replied"] {
+  background: #e2f4e8;
+  color: #217a45;
+}
+
+.status-pill[data-status="declined"] {
+  background: #fdecea;
+  color: #a93226;
+}
+
+.status-pill[data-status="closed"],
+.status-pill[data-status="checked_out"] {
+  background: #eceff3;
+  color: #5b6b7f;
+}
